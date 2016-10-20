@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+@import 'lib/normalize';
+@import 'util/_all';
+@import 'widget/m-article';
+@import 'widget/m-search';
+@import 'widget/m-topMenu';
+@import 'reset';
+@import 'icon';
+@import 'widget/m-topMenu';
+@import 'widget/m-article';
+
+body{
+  background-color: #f6f6f6;
+}
+
+.none{
+  display: none !important;
+}
+.hidden{
+  visibility: hidden !important;
+}
+
+/*外层容器*/
+.g-container {
+  width: $gContainerWith;
+  margin: 0 auto;
+}
+
+
