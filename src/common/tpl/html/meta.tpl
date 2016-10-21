@@ -14,3 +14,5 @@
 	<meta name="apple-mobile-web-app-capable" content="no">
 	<!-- 控制状态栏显示样式 -->
 	<meta name="apple-mobile-web-app-status-bar-style" content="white">
+	<!-- 网站icon -->
+	<link rel="shortcut icon" href="{{path}}/common/img/favicon_bak.ico"/>
