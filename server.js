@@ -3,12 +3,13 @@ var glob = require('glob');
 var cookieParser = require('cookie-parser');
 var artTemplate = require('art-template');
 
+var env = 'dev';
+
 /*总路由*/
 var server = express();
 
 /*静态文件*/
-server.use('/dev', express.static('dev'));
-server.use('/dist', express.static('dist'));
+server.use('/', express.static(env));
 
 /*解析cookie到req.cookies*/
 server.use(cookieParser());
@@ -21,12 +22,12 @@ server.set('view engine', 'html');
 // 设置取消view缓存，提升开发阶段很重要
 server.set('view cache', false);
 // 设置模板的物理base路径
-server.set('views', __dirname + '/dev/');
+server.set('views', __dirname + '/' + env + '/');
 // 为artTemplate注册helper方法
 require('./src/common/js/util/helper.js')(artTemplate);
 
 /*加载每个页面的路由*/
-var files = glob.sync('./src/module/*/router.js');
+var files = glob.sync('./' + env + '/module/*/router.js');
 for (var i = 0; i < files.length; i++) {
   server.use(require('./' + files[i]));
 }

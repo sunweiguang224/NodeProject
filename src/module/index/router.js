@@ -16,9 +16,8 @@ router.get('/index', function(req, res, next){
 			res.render('module/test2/test2.html', data);
 		}
 	});*/
-	console.log(111)
-	//res.render('module/index/index.html');
-	res.sendfile('dev/module/index/index.html');
+	console.log(__dirname + '/index.html')
+	res.render(__dirname + '/index.html');
 });
 
 module.exports = router;

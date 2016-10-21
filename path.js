@@ -25,6 +25,7 @@ Path.src = {
     Path.srcRoot + '/*module/'+moduleName+'/img/*.*'
   ],
 	html: Path.srcRoot + '/*module/'+moduleName+'/*.html',
+	router: Path.srcRoot + '/*module/'+moduleName+'/*.js',
 	js: {
 		common: Path.srcRoot + '/*common/js/*.js',	// 由nodejs负责
 		module: Path.srcRoot + '/*module/'+moduleName+'/js/*.js'		// 由webpack负责

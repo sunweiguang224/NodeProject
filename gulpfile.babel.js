@@ -67,7 +67,6 @@ gulp.task('task_clean_temp', () => {
 function compileCss(){
 	console.log('>>>>>>>>>>>>>>> css文件开始编译。' + getNow());
 	return gulp.src(Path.src.css)		// return这个流是为了保证任务按顺序执行
-		// 开发环境
 		.pipe(sourcemaps.init())	// 放到最开始才能对应原始的scss文件
 		.pipe(sass({outputStyle: 'uncompressed'}))
     .pipe(sourcemaps.write({includeContent: false}))  // 使用处理之前的源文件，当CSS被多个插件处理时，要加这句话，否则对应关系会错乱
@@ -85,7 +84,7 @@ gulp.task('task_css_dev', () => {
 gulp.task('task_css_dist', () => {
 	return compileCss()
     .pipe(header('\/* This css was compiled at '+ getNow() +'. *\/\n'))
-		.pipe(minifyCss())
+		//.pipe(minifyCss())
 		.pipe(rename({suffix: '.min'}))
 		.pipe(rev())
 		.pipe(gulp.dest(Path.distRoot))
@@ -185,37 +184,55 @@ gulp.task('task_js_dist', () => {
 
 // ************************************ 编译HTML ************************************
 function compileHtml(options){
-  console.log('>>>>>>>>>>>>>>> html文件开始编译。' + getNow());
-  return gulp.src(options.src)
-    .pipe(fileInclude({
-      prefix: '@@',
-      basepath: __dirname + '/src/common/tpl/'
-    }))
-    .pipe(replace('{{path}}', options.path))
-    .pipe(replace('{{min}}', options.compress))
-  ;
+	console.log('>>>>>>>>>>>>>>> html文件开始编译。' + getNow());
+	return gulp.src(options.src)
+		.pipe(fileInclude({
+			prefix: '@@',
+			basepath: __dirname + '/src/common/tpl/'
+		}))
+		.pipe(replace('{{path}}', options.path))
+		.pipe(replace('{{min}}', options.compress))
+		;
 }
 gulp.task('task_html_dev', () => {
-  return compileHtml({
-    src: [Path.src.html],
-    compress: '',
-    //path: '/' + getProjectName() + '/' + Path.devRoot
-    path: '/' + Path.devRoot  // nodejs
-  })
-  .pipe(gulp.dest(Path.devRoot))
-  ;
+	return compileHtml({
+		src: [Path.src.html],
+		compress: '',
+		//path: '/' + getProjectName() + '/' + Path.devRoot
+		//path: '/' + Path.devRoot  // nodejs
+		path: ''  // nodejs
+	})
+		.pipe(gulp.dest(Path.devRoot))
+		;
 });
 gulp.task('task_html_dist', () => {
-  return compileHtml({
-    src: [Path.src.html, Path.tempRoot + '/rev-manifest/*.json'],
-    compress: '.min',
-    //path: '/' + getProjectName() + '/' + Path.distRoot
-    path: '/' + Path.distRoot  // nodejs
-  })
-  .pipe(revCollector())
-  .pipe(minifyHtml())
-  .pipe(gulp.dest(Path.distRoot))
-  .pipe(size({showFiles: true}))
+	return compileHtml({
+		src: [Path.src.html, Path.tempRoot + '/rev-manifest/*.json'],
+		compress: '.min',
+		//path: '/' + getProjectName() + '/' + Path.distRoot
+		//path: '/' + Path.distRoot  // nodejs
+		path: ''  // nodejs
+	})
+		.pipe(revCollector())
+		.pipe(minifyHtml())
+		.pipe(gulp.dest(Path.distRoot))
+		.pipe(size({showFiles: true}))
+});
+
+// ************************************ 编译HTML ************************************
+function compileRouter(){
+	console.log('>>>>>>>>>>>>>>> router开始复制。' + getNow());
+	return gulp.src(Path.src.router)
+}
+gulp.task('task_router_dev', () => {
+	return compileRouter()
+		.pipe(gulp.dest(Path.devRoot))
+		;
+});
+gulp.task('task_router_dist', () => {
+	return compileRouter()
+		.pipe(gulp.dest(Path.distRoot))
+		;
 });
 
 // ************************************ 文件编译+监听(npm start) ************************************
@@ -226,6 +243,7 @@ gulp.task('default', [], () => {
     'task_sprite',
     ['task_css_dev', 'task_img_dev', 'task_js_dev'],
     'task_html_dev',
+    'task_router_dev',
     function(){
 			console.log('>>>>>>>>>>>>>>> gulp全部任务执行完毕。' + getNow());
 			// 监视html、模板变化
@@ -234,6 +252,10 @@ gulp.task('default', [], () => {
 				Path.srcRoot + '/common/**/*.html',
 				Path.srcRoot + '/common/**/*.tpl'
 			], ['task_html_dev']);
+			// 监视router
+			gulp.watch([
+				Path.src.router,
+			], ['task_router_dev']);
       // 监视css变化
 			gulp.watch([
 				Path.src.css,
@@ -279,6 +301,7 @@ gulp.task('build', [], () => {
     'task_sprite',
 		['task_css_dist', 'task_img_dist', 'task_js_dist'],
     'task_html_dist',
+    'task_router_dist',
     'task_clean_temp',
     function(){
 			console.log('>>>>>>>>>>>>>>> gulp全部任务执行完毕。' + getNow());

@@ -132,10 +132,10 @@
 */
 @mixin btn($height: '', $width: ''){
   display: inline-block;
-  @if ($height) {
+  @if ($height != '') {
     @include height($height);
   }
-  @if ($width) {
+  @if ($width != '') {
     width: $width;
   }
   border-radius: 3px;
