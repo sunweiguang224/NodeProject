@@ -18,6 +18,8 @@ server.use(cookieParser());
 server.engine('html', artTemplate.__express);
 // 设置默认模板引擎
 server.set('view engine', 'html');
+// 设置取消view缓存，提升开发阶段很重要
+server.set('view cache', false);
 // 设置模板的物理base路径
 server.set('views', __dirname + '/dev/');
 // 为artTemplate注册helper方法
@@ -29,6 +31,11 @@ for (var i = 0; i < files.length; i++) {
   server.use(require('./' + files[i]));
 }
 console.log('路由已加载：' + files);
+
+/*404页面，为防止提前匹配*，所以此处在其他路由之后加载，*/
+server.get('*', function(req, res, next){
+	res.render('module/404/404.html');
+});
 
 /*异常处理*/
 server.use(function(err, req, res, next) {

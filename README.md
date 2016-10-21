@@ -1,6 +1,9 @@
 # NodeProject(Node前端开发自动化构建工程)
 
-1.npm install
+1.首先安装需要的模块：
+  npm install                   // gulp编译需要的模块
+  npm install supervisor -g     // 服务器自动重启工具
+  npm install nrm -g            // 源管理工具
 2.md5版本号，需要修改如下文件中的代码：
   node_modules\gulp-rev\index.js( manifest[originalFile] = revisionedFile;  ->  manifest[originalFile] = originalFile + '?v=' + file.revHash; )
   node_modules\rev-path\index.js( return filename + '-' + hash + ext;  ->  return filename + ext; )
@@ -12,3 +15,6 @@
   npm run build
   npm start -- --name login
   npm run build -- --name login
+6.express服务启动：
+  supervisor -e . server.js     // -e .意为-extension *
+  或 node server.js
