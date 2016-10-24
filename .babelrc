@@ -1,4 +1,4 @@
-// babel配置文件
+// babel配置文件（提供给gulpfile.babel.js使用）
 {
     "presets": [
       "es2015",
