@@ -371,3 +371,7 @@ gulp.task('create', () => {
 		console.log('>>>>>>>>>>>>>>> '+answer.module+'模块'+file+'文件创建完毕。' + getNow());
 	});
 });
+
+gulp.task('server', () => {
+	require('./config/express/server.js');
+});
