@@ -1,10 +1,11 @@
 var express = require('express');
-var request = require('../../../server/request.js');
+var ajax = require('../../../config/express/ajax.js');
 
 var router = express.Router();
 
+console.log(__dirname + '/index.html')
 router.get('/index', function(req, res, next){
-	/*request.get({
+	/*ajax.get({
 		url: 'http://api.k.sohu.com/api/search/v6/hotwords.go',
 		param: {
 			a: 1,
