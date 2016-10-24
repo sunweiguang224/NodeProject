@@ -36,6 +36,7 @@ import	path from 'path';		// 路径解析模块
 import	rev from 'gulp-rev';		// 修改文件名增加md5，并生成rev-manifest.json
 import	revCollector from 'gulp-rev-collector';		// 根据rev-manifest.json对html中引用的静态资源路径做替换
 import	gzip from 'gulp-gzip';		// gzip对html、js、css、img进行强力压缩，用法：.pipe(gzip({append: false})) //去掉.gz后缀
+import	supervisor from 'supervisor';		// 监控文件修改，并重启进程
 
 /* 获取当前格式化时间 */
 function getNow(){
@@ -372,6 +373,8 @@ gulp.task('create', () => {
 	});
 });
 
+// ************************************ 启动express http服务(npm run server) ************************************
 gulp.task('server', () => {
-	require('./config/express/server.js');
+	// supervisor -w dev -e js server.js（-e .意为-extension *，-w dev监视dev目录）
+	supervisor.run('-w dev -e js ./config/express/server.js'.split(' '));
 });

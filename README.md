@@ -15,6 +15,5 @@
   npm run build
   npm start -- --name login
   npm run build -- --name login
-6.express服务启动：
-  supervisor -w dev -e js server.js     // -e .意为-extension *，-w dev监视dev目录
-  或 node server.js
+6.启动express http服务：
+  npm run server 或 node server.js
