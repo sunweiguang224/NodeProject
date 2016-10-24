@@ -1,7 +1,7 @@
 /**
  * Created by weiguangsun on 2016/4/20.
  */
-import Path from './path.js';
+import Path from '../path.js';
 import fs from 'fs';
 import webpack from 'webpack';
 import glob from 'glob';
@@ -13,10 +13,12 @@ module.exports = {
     // 为src/common/js/*/*.js文件提供别名
 		alias: (function(){
       var alias = {};
-      var filePaths = glob.sync(Path.srcRoot + '/common/js/*/*.js');
+      var filePaths = glob.sync(__dirname+'/../../'+Path.srcRoot + '/common/js/*/*.js');
+			console.log(filePaths)
       for(var i in filePaths) {
         var filePath = filePaths[i];
-        alias[path.basename(filePath).replace('.js', '')] = __dirname+'/'+filePath;
+				console.log(path.basename(filePath))
+        alias[path.basename(filePath).replace('.js', '')] = filePath;
       }
       console.log(alias);
       return alias;
@@ -30,7 +32,7 @@ module.exports = {
 		var filePaths = glob.sync(path);
 		for (var i in filePaths) {
 			var filePath = filePaths[i];		// 读取文件路径
-			var moduleName = filePath.replace(Path.srcRoot+'/', '').replace('.js', '');	// 文件编译后路径
+			var moduleName = filePath.replace(__dirname+'../../'+Path.srcRoot+'/', '').replace('.js', '');	// 文件编译后路径
 			entry[moduleName] = './' + filePath;
 		}
     console.log(entry);

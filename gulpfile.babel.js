@@ -5,7 +5,7 @@
  * 前提需要先安装babel-core、babel-preset-es2015、babel-preset-stage-0
  */
 // 引入组件
-import Path from './path.js';
+import Path from './config/path.js';
 import gulp from 'gulp';
 //$ = require('gulp-load-plugins')(),		//插件加载器，启动加载devDependencies中所有插件
 import	uglify from 'gulp-uglify';		// js压缩混淆
@@ -108,7 +108,7 @@ gulp.task('task_sprite', () => {
       var baseName = iconDir.substring(iconDir.lastIndexOf('/') + 1);
       var stream = gulp.src(iconDir + '/*')
         .pipe(spritesmith({
-          cssTemplate: './spritesmith.css'+(Path.env == 'pc' ? '.pc' : '')+'.hbs',
+          cssTemplate: './config/spritesmith/spritesmith.css'+(Path.env == 'pc' ? '.pc' : '')+'.hbs',
           padding: 10,
           layout: 'top-down',
           imgName: baseName + '.png',
@@ -141,7 +141,7 @@ gulp.task('task_img_dist', () => {
 // ************************************ 编译JS ************************************
 function webpackCompileJs(){
 	console.log('>>>>>>>>>>>>>>> js文件开始编译。' + getNow());
-	let webpackConfig = require("./webpack.config.js");
+	let webpackConfig = require("./config/webpack/webpack.config.js");
 	return gulp.src('')
 		.pipe(webpack(webpackConfig))
 		.pipe(header('\/* This css was compiled at '+ getNow() +'. *\/\n'));

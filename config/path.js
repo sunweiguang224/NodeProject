@@ -32,12 +32,12 @@ Path.src = {
 	},
 	generator: {
     mobile: [
-      'generator/mobile/*.html',
-      'generator/mobile/*/*'
+      'config/generator/mobile/*.html',
+      'config/generator/mobile/*/*'
     ],
     pc: [
-      'generator/pc/*.html',
-      'generator/pc/*/*'
+      'config/generator/pc/*.html',
+      'config/generator/pc/*/*'
     ]
   }
 };
