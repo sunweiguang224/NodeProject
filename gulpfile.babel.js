@@ -40,13 +40,12 @@ import	supervisor from 'supervisor';		// 监控文件修改，并重启进程
 
 /* 获取当前格式化时间 */
 function getNow(){
-	var mt = moment();
-	return mt.format("YYYY-MM-DD HH:mm:ss ") + mt.millisecond();
+	return moment().format("YYYY-MM-DD HH:mm:ss ") + mt.millisecond();
 }
 
 /* 获取工程名称 */
 function getProjectName(){
-  var arr = __dirname.split('\\');
+  let arr = __dirname.split('\\');
   return arr[arr.length - 1];
 }
 
@@ -98,16 +97,16 @@ gulp.task('task_css_dist', () => {
 // ************************************ 合成雪碧图+生成scss ************************************
 gulp.task('task_sprite', () => {
   console.log('>>>>>>>>>>>>>>> 开始合成雪碧图。' + getNow());
-  //var dirs = fs.readdirSync(Path.src.sprite);
-  var merged = mergeStream();
-  var iconDirs = glob.sync(path.normalize(Path.src.icon.module + '/..'));
+  //let dirs = fs.readdirSync(Path.src.sprite);
+  let merged = mergeStream();
+  let iconDirs = glob.sync(path.normalize(Path.src.icon.module + '/..'));
   iconDirs = iconDirs.concat(glob.sync(path.normalize(Path.src.icon.common + '/..')));
   console.log(iconDirs)
   iconDirs.forEach(function(iconDir){
     console.log(iconDir)
     if(fs.statSync(iconDir).isDirectory()){
-      var baseName = iconDir.substring(iconDir.lastIndexOf('/') + 1);
-      var stream = gulp.src(iconDir + '/*')
+      let baseName = iconDir.substring(iconDir.lastIndexOf('/') + 1);
+      let stream = gulp.src(iconDir + '/*')
         .pipe(spritesmith({
           cssTemplate: './config/spritesmith/spritesmith.css'+(Path.env == 'pc' ? '.pc' : '')+'.hbs',
           padding: 10,
@@ -350,7 +349,7 @@ gulp.task('create', () => {
 		}
 	]).then((answer) => {
 		console.log(answer);
-		var newModulePath = Path.srcRoot + '/module/'+answer.module,
+		let newModulePath = Path.srcRoot + '/module/'+answer.module,
 			file = answer.file || answer.module;
 		gulp.src(Path.env == 'pc' ? Path.src.generator.pc : Path.src.generator.mobile)
 			.pipe(rename({
