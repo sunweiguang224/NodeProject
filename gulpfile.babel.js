@@ -40,7 +40,7 @@ import	supervisor from 'supervisor';		// 监控文件修改，并重启进程
 
 /* 获取当前格式化时间 */
 function getNow(){
-	return moment().format("YYYY-MM-DD HH:mm:ss ") + mt.millisecond();
+	return moment().format("YYYY-MM-DD HH:mm:ss ") + moment().millisecond();
 }
 
 /* 获取工程名称 */
@@ -152,7 +152,7 @@ gulp.task('task_js_dev', () => {
 			;
 	}
 	// common部分的js
-  deployDev(gulp.src(Path.src.js.common));
+	deployDev(gulp.src(Path.src.js.common));
 	// module部分的js
 	return deployDev(webpackCompileJs());
 });
