@@ -1,96 +1,48 @@
-// comment 图片:
-$comment-width: (16px);
-$comment-height: (16px);
-$comment-bg-image: 'icon.png';
-$comment-bg-position: (-106px) (-36px);
-$comment-bg-size: (132px) (97px);
+// a1 图片:
+$a1-width: (16px);
+$a1-height: (16px);
+$a1-bg-image: 'icon.png';
+$a1-bg-position: (0px) (0px);
+$a1-bg-size: (42px) (16px);
 /*
-.i-comment{
+.i-a1{
   display: inline-block;
-  width: $comment-width;
-  height: $comment-height;
-  background: $comment-bg-image $comment-bg-position no-repeat;
-  background-size: $comment-bg-size;
+  width: $a1-width;
+  height: $a1-height;
+  background: $a1-bg-image $a1-bg-position no-repeat;
+  background-size: $a1-bg-size;
 }
 */
-@mixin i-comment($path: '../img/'){
+@mixin i-a1($path: '../img/'){
   content: '';
   display: inline-block;
-  width: $comment-width;
-  height: $comment-height;
-  background: url($path + $comment-bg-image) $comment-bg-position no-repeat;
-  background-size: $comment-bg-size;
+  width: $a1-width;
+  height: $a1-height;
+  background: url($path + $a1-bg-image) $a1-bg-position no-repeat;
+  background-size: $a1-bg-size;
 }
 
-// login 图片:
-$login-width: (26px);
-$login-height: (26px);
-$login-bg-image: 'icon.png';
-$login-bg-position: (-106px) (0px);
-$login-bg-size: (132px) (97px);
+// a2 图片:
+$a2-width: (16px);
+$a2-height: (16px);
+$a2-bg-image: 'icon.png';
+$a2-bg-position: (-26px) (0px);
+$a2-bg-size: (42px) (16px);
 /*
-.i-login{
+.i-a2{
   display: inline-block;
-  width: $login-width;
-  height: $login-height;
-  background: $login-bg-image $login-bg-position no-repeat;
-  background-size: $login-bg-size;
+  width: $a2-width;
+  height: $a2-height;
+  background: $a2-bg-image $a2-bg-position no-repeat;
+  background-size: $a2-bg-size;
 }
 */
-@mixin i-login($path: '../img/'){
+@mixin i-a2($path: '../img/'){
   content: '';
   display: inline-block;
-  width: $login-width;
-  height: $login-height;
-  background: url($path + $login-bg-image) $login-bg-position no-repeat;
-  background-size: $login-bg-size;
-}
-
-// logo 图片:
-$logo-width: (96px);
-$logo-height: (97px);
-$logo-bg-image: 'icon.png';
-$logo-bg-position: (0px) (0px);
-$logo-bg-size: (132px) (97px);
-/*
-.i-logo{
-  display: inline-block;
-  width: $logo-width;
-  height: $logo-height;
-  background: $logo-bg-image $logo-bg-position no-repeat;
-  background-size: $logo-bg-size;
-}
-*/
-@mixin i-logo($path: '../img/'){
-  content: '';
-  display: inline-block;
-  width: $logo-width;
-  height: $logo-height;
-  background: url($path + $logo-bg-image) $logo-bg-position no-repeat;
-  background-size: $logo-bg-size;
-}
-
-// redStar 图片:
-$redStar-width: (16px);
-$redStar-height: (16px);
-$redStar-bg-image: 'icon.png';
-$redStar-bg-position: (-106px) (-62px);
-$redStar-bg-size: (132px) (97px);
-/*
-.i-redStar{
-  display: inline-block;
-  width: $redStar-width;
-  height: $redStar-height;
-  background: $redStar-bg-image $redStar-bg-position no-repeat;
-  background-size: $redStar-bg-size;
-}
-*/
-@mixin i-redStar($path: '../img/'){
-  content: '';
-  display: inline-block;
-  width: $redStar-width;
-  height: $redStar-height;
-  background: url($path + $redStar-bg-image) $redStar-bg-position no-repeat;
-  background-size: $redStar-bg-size;
+  width: $a2-width;
+  height: $a2-height;
+  background: url($path + $a2-bg-image) $a2-bg-position no-repeat;
+  background-size: $a2-bg-size;
 }
 

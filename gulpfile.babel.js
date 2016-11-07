@@ -99,7 +99,9 @@ gulp.task('task_sprite', () => {
   console.log('>>>>>>>>>>>>>>> 开始合成雪碧图。' + getNow());
   //let dirs = fs.readdirSync(Path.src.sprite);
   let merged = mergeStream();
-  let iconDirs = glob.sync(path.normalize(Path.src.icon.module + '/..'));
+  let iconDirs = [];
+	iconDirs = iconDirs.concat(glob.sync(path.normalize(Path.src.icon.module + '/..')));
+  iconDirs = iconDirs.concat(glob.sync(path.normalize(Path.src.icon.widget + '/..')));
   iconDirs = iconDirs.concat(glob.sync(path.normalize(Path.src.icon.common + '/..')));
   console.log(iconDirs)
   iconDirs.forEach(function(iconDir){
@@ -258,8 +260,9 @@ gulp.task('default', [], () => {
 			], ['task_router_dev']);
       // 监视css变化
 			gulp.watch([
-				Path.src.css,
-				Path.srcRoot + '/common/**/css/*.scss'
+				//Path.src.css,
+				//Path.srcRoot + '/common/**/css/*.scss'
+				Path.srcRoot + '/**/*.scss'
 			], ['task_css_dev']);
       // 监视图片变化
 			gulp.watch([

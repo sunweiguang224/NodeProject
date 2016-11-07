@@ -1,6 +1,7 @@
 @import '../../common/css/util/variable';
 @import '../../common/css/util/_mixin';
 @import '../../common/css/_icon';
+@import 'css/_icon';
 
 /*文章*/
 .m-article{
@@ -25,7 +26,7 @@
       margin-top: -2px;
     }
     &:after{
-      @include i-redStar('../../../common/img/');
+      @include i-redStar('../../../widget/m-article/img/');
       margin-top: -4px;
       margin-left: 12px;
     }
@@ -67,7 +68,7 @@
     @include click-animation;
     @include level-children;
     &:before{
-      @include i-comment('../../../common/img/');
+      @include i-comment('../../../widget/m-article/img/');
       margin-top: -3px;
       margin-right: 10px;
     }

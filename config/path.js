@@ -17,12 +17,14 @@ Path.src = {
     Path.srcRoot + '/*module/'+moduleName+'/css/*.scss'
   ],
 	icon: {
-    module: Path.srcRoot + '/*module/*/img/*/*', // common模块下图片是公用的，页面之间可以利用缓存，故不作处理
-    common: Path.srcRoot + '/*common/img/*/*'
-  },
+		module: Path.srcRoot + '/*module/*/img/*/*',
+		widget: Path.srcRoot + '/*widget/*/img/*/*',
+    common: Path.srcRoot + '/*common/img/*/*', // common模块下图片是公用的，页面之间可以利用缓存，故不作处理
+	},
 	img: [
     Path.srcRoot + '/*common/img/*.*',
-    Path.srcRoot + '/*module/'+moduleName+'/img/*.*'
+    Path.srcRoot + '/*module/'+moduleName+'/img/*.*',
+    Path.srcRoot + '/*widget/*/img/*.*',
   ],
 	html: Path.srcRoot + '/*module/'+moduleName+'/*.html',
 	router: Path.srcRoot + '/*module/'+moduleName+'/*.js',
