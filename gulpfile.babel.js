@@ -188,7 +188,7 @@ function compileHtml(options){
 	return gulp.src(options.src)
 		.pipe(fileInclude({
 			prefix: '@@',
-			basepath: __dirname + '/src/common/tpl/'
+			basepath: __dirname + '/src/'
 		}))
 		.pipe(replace('{{path}}', options.path))
 		.pipe(replace('{{min}}', options.compress))
@@ -198,9 +198,9 @@ gulp.task('task_html_dev', () => {
 	return compileHtml({
 		src: [Path.src.html],
 		compress: '',
-		//path: '/' + getProjectName() + '/' + Path.devRoot
+		path: '/' + getProjectName() + '/' + Path.devRoot
 		//path: '/' + Path.devRoot  // nodejs
-		path: ''  // nodejs
+		//path: ''  // nodejs
 	})
 		.pipe(gulp.dest(Path.devRoot))
 		;
