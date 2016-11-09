@@ -109,7 +109,7 @@ gulp.task('task_sprite', () => {
 						cssTemplate: './config/spritesmith/spritesmith.css'+(Path.env == 'pc' ? '.pc' : '')+'.hbs',
 						padding: 10,
 						layout: 'top-down',
-						imgName: baseName + '.png',
+						imgName: '_' + baseName + '.png',
 						cssName: '_' + baseName + '.scss',
 					}));
 				merged.add(stream.img.pipe(gulp.dest(iconDir + param.img)));
