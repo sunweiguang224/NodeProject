@@ -119,14 +119,20 @@ gulp.task('task_sprite', () => {
 		});
 	}
 
+	// page雪碧图
 	let iconDirs = [];
 	iconDirs = iconDirs.concat(glob.sync(path.normalize(Path.src.icon.page + '/..')));
-	iconDirs = iconDirs.concat(glob.sync(path.normalize(Path.src.icon.common + '/..')));
-	console.log(iconDirs);
 	create({
 		iconDirs: iconDirs,
 		img: '/..',
 		css: '/../../css/',
+	});
+	// common雪碧图
+	iconDirs = glob.sync(path.normalize(Path.src.icon.common + '/..'));
+	create({
+		iconDirs: iconDirs,
+		img: '/..',
+		css: '/../../css/icon/',
 	});
 	// widget雪碧图
 	iconDirs = glob.sync(path.normalize(Path.src.icon.widget + '/..'));

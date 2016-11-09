@@ -2,8 +2,8 @@
 @import 'util/variable';
 @import 'util/mixin';
 @import 'lib/normalize';
-@import 'reset';
-@import 'icon';
+@import 'util/reset';
+@import 'icon/_icon1';
 
 /*页面容器宽度*/
 $containerMinWidth: 360px;

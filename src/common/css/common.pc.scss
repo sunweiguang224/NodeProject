@@ -1,9 +1,11 @@
 @charset "UTF-8";
 
 @import 'lib/normalize';
+@import 'util/variable';
+@import 'util/mixin';
 @import 'util/_all';
-@import 'reset';
-@import 'icon';
+@import 'util/reset';
+@import 'icon/_icon1';
 
 body{
   background-color: #f6f6f6;
