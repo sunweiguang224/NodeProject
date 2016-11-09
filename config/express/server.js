@@ -27,7 +27,7 @@ server.set('views', __dirname + '/' + relativePath + env + '/');
 require(__dirname + '/' + relativePath + 'src/common/js/util/helper.js')(artTemplate);
 
 /*加载每个页面的路由*/
-var files = glob.sync(__dirname + '/' + relativePath + env + '/module/*/router.js');
+var files = glob.sync(__dirname + '/' + relativePath + env + '/page/*/router.js');
 for (var i = 0; i < files.length; i++) {
   server.use(require(files[i]));
 }
@@ -35,7 +35,7 @@ console.log('路由已加载：' + files);
 
 /*404页面，为防止提前匹配*，所以此处在其他路由之后加载，*/
 //server.get('*', function(req, res, next){
-//	res.render('module/404/404.html');
+//	res.render('page/404/404.html');
 //});
 
 /*异常处理*/

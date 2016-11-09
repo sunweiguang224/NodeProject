@@ -13,8 +13,8 @@ router.get('/index', function(req, res, next){
 		},
 		success: function(data){
 			console.log(data);
-			//res.render('dev/module/test2/test2.html', data);
-			res.render('module/test2/test2.html', data);
+			//res.render('dev/page/test2/test2.html', data);
+			res.render('page/test2/test2.html', data);
 		}
 	});*/
 	console.log(__dirname + '/index.html')

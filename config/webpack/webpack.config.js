@@ -33,7 +33,7 @@ module.exports = {
 			entry[moduleName] = './' + filePath;
 		}
 		return entry;
-	}(Path.src.js.module),
+	}(Path.src.js.page),
   // 插件
   plugins: [
     // 将公共代码抽离出来合并为一个文件
