@@ -262,9 +262,8 @@ gulp.task('task_router_dist', () => {
 
 // ************************************ 文件编译+监听(npm start) ************************************
 // 任务入口
-gulp.task('default', [], () => {
+gulp.task('default', ['task_clean_dev'], () => {
 	runSequence(
-		'task_clean_dev',
 		'task_sprite',
 		['task_css_dev', 'task_img_dev', 'task_js_dev'],
 		'task_html_dev',
@@ -321,9 +320,8 @@ gulp.task('default', [], () => {
 });
 
 // ************************************ 文件编译(npm run build) ************************************
-gulp.task('dist', [], () => {
+gulp.task('dist', ['task_clean_dist'], () => {
 	runSequence(
-		'task_clean_dist',
 		'task_sprite',
 		['task_css_dist', 'task_img_dist', 'task_js_dist'],
 		'task_html_dist',
