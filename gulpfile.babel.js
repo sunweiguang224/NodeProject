@@ -301,9 +301,10 @@ gulp.task('default', ['task_clean_dev'], () => {
 			// 监视js、模板变化
 			gulp.watch([
 				Path.src.js.common,
-				Path.srcRoot + '/common/**/*.js',
+				//Path.srcRoot + '/common/**/*.js',
 				Path.srcRoot + '/common/**/*.tpl',
-				Path.srcRoot + '/page/**/*.js',
+				//Path.srcRoot + '/page/**/*.js',
+				Path.srcRoot + '/**/*.js',
 				Path.srcRoot + '/page/**/*.tpl'
 			], ['task_js_dev']);
 			// 监视dev目录变化触发liveReload
