@@ -5,9 +5,7 @@ function MultiLine() {
 	this.$heightTest = null;
 }
 
-MultiLine.prototype.init = function (selector) {
-	selector = selector || '.m-multiLine';
-
+MultiLine.prototype.init = function (selector = '.m-multiLine') {
 	this.$multiLine = $(selector);
 	this.$heightTest = this.$multiLine.children('.m-multiLine-heightTest');
 

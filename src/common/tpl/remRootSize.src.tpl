@@ -6,8 +6,8 @@
       var clientWidth = document.documentElement.clientWidth;
       if(clientWidth > 720){
         clientWidth = 720;
-      }else if(clientWidth < 360){
-        clientWidth = 360;
+      }else if(clientWidth < 320){
+        clientWidth = 320;
       }
       document.documentElement.style.fontSize = (clientWidth / width) * 100 + "px";
       return arguments.callee
