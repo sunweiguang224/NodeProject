@@ -14,7 +14,7 @@ function Biz() {
 	//var css = require('../css/demo.scss');
 	//var json = require('../json/demo.json');
 
-	var MultiLine = require('../../../widget/m-multiLine/m-multiLine.js')
+	var MultiLine = require('../../../widget/m-multiLine/m-multiLine.js');
 	new MultiLine().init();
 }
 new Biz();

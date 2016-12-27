@@ -1,0 +1,48 @@
+// _icon 图片:
+$_icon-width: (121px);
+$_icon-height: (117px);
+$_icon-bg-image: '_icon.png';
+$_icon-bg-position: (-131px) (0px);
+$_icon-bg-size: (252px) (117px);
+/*
+.i-_icon{
+  display: inline-block;
+  width: $_icon-width;
+  height: $_icon-height;
+  background: $_icon-bg-image $_icon-bg-position no-repeat;
+  background-size: $_icon-bg-size;
+}
+*/
+@mixin i-_icon($path: '../img/'){
+  content: '';
+  display: inline-block;
+  width: $_icon-width;
+  height: $_icon-height;
+  background: url($path + $_icon-bg-image) $_icon-bg-position no-repeat;
+  background-size: $_icon-bg-size;
+}
+
+// icon8 图片:
+$icon8-width: (121px);
+$icon8-height: (117px);
+$icon8-bg-image: '_icon.png';
+$icon8-bg-position: (0px) (0px);
+$icon8-bg-size: (252px) (117px);
+/*
+.i-icon8{
+  display: inline-block;
+  width: $icon8-width;
+  height: $icon8-height;
+  background: $icon8-bg-image $icon8-bg-position no-repeat;
+  background-size: $icon8-bg-size;
+}
+*/
+@mixin i-icon8($path: '../img/'){
+  content: '';
+  display: inline-block;
+  width: $icon8-width;
+  height: $icon8-height;
+  background: url($path + $icon8-bg-image) $icon8-bg-position no-repeat;
+  background-size: $icon8-bg-size;
+}
+
