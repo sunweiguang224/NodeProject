@@ -8,6 +8,6 @@ export default {
 	/* 获取工程名称 */
 	getProjectName: function () {
 		let arr = __dirname.split('\\');
-		return arr[arr.length - 1];
+		return arr[arr.length - 2];
 	}
 }
