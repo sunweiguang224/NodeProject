@@ -8,19 +8,22 @@
  //var json = require('../json/demo.json');
  */
 import $ from 'jquery';
-import path from 'path';
+import PATH from 'PATH';
 import helper from 'helper';
 import lazyload from 'lazyload';
+import param from 'param';
 
 class Biz {
 	/* 构造方法 */
 	constructor() {
+    this.params = window.param.getAll();
 		this.init();
 	}
 
 	/* 初始化页面 */
 	init() {
 		var ts = this;
+    console.log(ts.param);
 		// 先渲染页面，再绑定事件
 		$.when(
 			this.getData(),
@@ -37,7 +40,7 @@ class Biz {
 		$.ajax({
 			cache: false,
 			async: true,
-			url: 'xxx',
+			url: PATH.interface + '/xxx',
 			type: 'get',
 			data: {}
 		}).then(function (data) {

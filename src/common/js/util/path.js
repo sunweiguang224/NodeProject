@@ -1,6 +1,7 @@
 /**
  * 功能描述：path全局变量
  */
-module.exports = {
+const PATH = {
   interface: '../../../common/js/',
 };
+export default PATH;

@@ -1,4 +1,5 @@
 import moment from 'moment';		// 时间格式化
+import path from 'path';
 
 export default {
 	/* 获取当前格式化时间 */
@@ -7,7 +8,6 @@ export default {
 	},
 	/* 获取工程名称 */
 	getProjectName: function () {
-		let arr = __dirname.split('\\');
-		return arr[arr.length - 2];
+		return path.basename(path.resolve(__dirname, '../'));
 	}
 }
