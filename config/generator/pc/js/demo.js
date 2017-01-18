@@ -35,7 +35,6 @@ class Biz {
 		let ts = this,
 			defer = $.Deferred();
 		$.ajax({
-			cache: false,
 			async: true,
 			url: 'xxx',
 			type: 'get',

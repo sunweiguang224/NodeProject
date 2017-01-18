@@ -35,7 +35,6 @@ class Biz {
 	get() {
     let defer = $.Deferred();
 		$.ajax({
-			cache: false,
 			async: true,
 			url: PATH.interface + '/xxx',
 			type: 'get',
