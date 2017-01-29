@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>添加模拟数据</title>
+	<meta name="keywords" content="添加模拟数据"/>
+	<meta name="description" content="添加模拟数据"/>
+	@@include('common/tpl/meta.pc.tpl')
+  <link rel="stylesheet" href="{{path}}/common/css/common.pc{{min}}.css">
+	<link rel="stylesheet" href="{{path}}/page/mockAdd/css/mockAdd{{min}}.css">
+</head>
+<body>
+	<div class="g-container">
+    <div class="form">
+      <div class="item">
+        <span class="field">路径:</span>
+        <span class="input">
+          <input id="path" type="text" value="/mock/xxx">
+        </span>
+      </div>
+      <div class="item">
+        <span class="field">数据生成规则:</span>
+        <span class="input">
+          <textarea id="json"></textarea>
+        </span>
+      </div>
+      <div class="item submit">
+        <button id="submit">提交</button>
+      </div>
+    </div>
+	</div>
+	<script src="{{path}}/common/js/common.bundle{{min}}.js"></script>
+	<script src="{{path}}/page/mockAdd/js/mockAdd.bundle{{min}}.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>模拟数据列表</title>
+	<meta name="keywords" content="模拟数据列表"/>
+	<meta name="description" content="模拟数据列表"/>
+	@@include('common/tpl/meta.pc.tpl')
+  <link rel="stylesheet" href="{{path}}/common/css/common.pc{{min}}.css">
+	<link rel="stylesheet" href="{{path}}/page/mockList/css/mockList{{min}}.css">
+</head>
+<body>
+	<div class="g-container">
+    <div class="grid">
+      <div class="row title">
+        <span class="field operator">操作</span>
+        <span class="field num">序号:</span>
+        <span class="field path">路径:</span>
+        <span class="field json">规则:</span>
+        <span class="field mock">模拟:</span>
+      </div>
+      {{each rows}}
+      <div class="row item">
+        <span class="field operator">
+          <button class="deleteBtn" data-id="{{$value.id}}">删除</button>
+          <button class="lookBtn" data-id="{{$value.id}}">查看</button>
+        </span>
+        <span class="field num">{{rows.length - $index}}</span>
+        <span class="field path">{{$value.path}}</span>
+        <span class="field json">{{$value.json}}</span>
+        <span class="field mock">{{$value.json | mock}}</span>
+      </div>
+      {{/each}}
+      <div class="row add">
+        <button id="addBtn">新增</button>
+      </div>
+    </div>
+	</div>
+	<script src="{{path}}/common/js/common.bundle{{min}}.js"></script>
+	<script src="{{path}}/page/mockList/js/mockList.bundle{{min}}.js"></script>
+</body>
+</html>

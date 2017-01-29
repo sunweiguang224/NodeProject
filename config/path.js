@@ -11,6 +11,10 @@ const Path = {
 	distRoot: 'dist',
   tempRoot: '.temp'
 };
+
+/*默认无值移动端,这个值决定npm run create时使用pc或mobile模板*/
+Path.env = 'pc';
+
 Path.src = {
 	css: [
     Path.srcRoot + '/*common/css/**/*.*',     // 原先写法 css: Path.srcRoot + '/*(page|common)/**/css/*.scss',
@@ -33,18 +37,13 @@ Path.src = {
 		page: Path.srcRoot + '/*page/'+pageName+'/js/*.js'		// 由webpack负责
 	},
 	generator: {
-    mobile: [
-      'config/generator/mobile/*.html',
-      'config/generator/mobile/*/*'
+    m: [
+      'config/generator/m/**/*.*'
     ],
     pc: [
-      'config/generator/pc/*.html',
-      'config/generator/pc/*/*'
+      'config/generator/pc/**/*.*'
     ]
   }
 };
-
-/*默认无值移动端*/
-Path.env = 'pc';
 
 module.exports = Path;
