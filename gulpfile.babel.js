@@ -222,9 +222,8 @@ gulp.task('task_html_dist', () => {
   return compileHtml({
     src: [Path.src.html, Path.tempRoot + '/rev-manifest/*.json'],
     compress: '.min',
-    path: '/' + util.getProjectName() + '/' + Path.distRoot
-    //path: '/' + Path.distRoot  // nodejs
-    //path: ''  // nodejs
+    // path: '/' + util.getProjectName() + '/' + Path.distRoot
+    path: ''  // nodejs
   })
     .pipe(revCollector())
     .pipe(minifyHtml())
@@ -232,7 +231,7 @@ gulp.task('task_html_dist', () => {
     .pipe(size({showFiles: true}))
 });
 
-// ************************************ 编译HTML ************************************
+// ************************************ 复制router ************************************
 function compileRouter() {
   console.log('>>>>>>>>>>>>>>> router开始复制。' + util.getNow());
   return gulp.src(Path.src.router)
@@ -248,53 +247,88 @@ gulp.task('task_router_dist', () => {
     ;
 });
 
-// ************************************ 文件编译+监听(npm start) ************************************
-// 任务入口
-gulp.task('default', ['task_clean_dev'], () => {
-  runSequence(
-    'task_sprite',
-    ['task_css_dev', 'task_img_dev', 'task_js_dev'],
-    'task_html_dev',
-    'task_router_dev',
-    function () {
-      console.log('>>>>>>>>>>>>>>> gulp dev全部任务执行完毕。' + util.getNow());
-      // 监视html、模板变化
-      gulp.watch([`${Path.srcRoot}/**/*.{html,tpl}`], ['task_html_dev']);
-      // 监视router
-      gulp.watch([Path.src.router], ['task_router_dev']);
-      // 监视css变化
-      gulp.watch([`${Path.srcRoot}/**/*.scss`], ['task_css_dev']);
-      // 监视雪碧图变化
-      gulp.watch([`${Path.srcRoot}/**/img/*/*.{png,jpg,gif}`], ['task_sprite']);
-      // 监视图片变化
-      gulp.watch([`${Path.srcRoot}/**/img/*.{png,jpg,gif}`], ['task_img_dev']);
-      // 监视js、模板变化
-      gulp.watch([`${Path.srcRoot}/**/*.{js,tpl}`], ['task_js_dev']);
-      // 开启liveReload
-      liveReload.listen();
-      // 监听开发目录变化，触发liveReload刷新浏览器
-      gulp.watch([`${Path.devRoot}/**/*`], function (file) {
-        //setTimeout(function(){
-        liveReload.changed(file.path);
-        //}, 1000);
-      });
-      console.log('>>>>>>>>>>>>>>> gulp 已开启所有监听。' + util.getNow());
+// ************************************ 程序入口(npm start),选择以何种服务启动NodeJs. ************************************
+let entry = {
+  // 文件编译+监听
+  staticDev: function (callback) {
+    runSequence(
+      ['task_clean_dev'],
+      'task_sprite',
+      ['task_css_dev', 'task_img_dev', 'task_js_dev'],
+      'task_html_dev',
+      'task_router_dev',
+      function () {
+        console.log('>>>>>>>>>>>>>>> gulp dev全部任务执行完毕。' + util.getNow());
+        // 监视html、模板变化
+        gulp.watch([`${Path.srcRoot}/**/*.{html,tpl}`], ['task_html_dev']);
+        // 监视router
+        gulp.watch([Path.src.router], ['task_router_dev']);
+        // 监视css变化
+        gulp.watch([`${Path.srcRoot}/**/*.scss`], ['task_css_dev']);
+        // 监视雪碧图变化
+        gulp.watch([`${Path.srcRoot}/**/img/*/*.{png,jpg,gif}`], ['task_sprite']);
+        // 监视图片变化
+        gulp.watch([`${Path.srcRoot}/**/img/*.{png,jpg,gif}`], ['task_img_dev']);
+        // 监视js、模板变化
+        gulp.watch([`${Path.srcRoot}/**/*.{js,tpl}`], ['task_js_dev']);
+        // 开启liveReload
+        liveReload.listen();
+        // 监听开发目录变化，触发liveReload刷新浏览器
+        gulp.watch([`${Path.devRoot}/**/*`], function (file) {
+          //setTimeout(function(){
+          liveReload.changed(file.path);
+          //}, 1000);
+        });
+        console.log('>>>>>>>>>>>>>>> gulp 已开启所有监听。' + util.getNow());
+        callback && callback();
+      }
+    );
+  },
+  // 文件编译+压缩
+  staticDist: function (callback) {
+    runSequence(
+      ['task_clean_dist'],
+      'task_sprite',
+      ['task_css_dist', 'task_img_dist', 'task_js_dist'],
+      'task_html_dist',
+      'task_router_dist',
+      'task_clean_temp',
+      function () {
+        console.log('>>>>>>>>>>>>>>> gulp全部任务执行完毕。' + util.getNow());
+        callback && callback();
+      }
+    );
+  },
+  // 文件编译+监听+server启动
+  serverDev: function () {
+    this.staticDev(function () {
+      // supervisor -w dev -e js server.js（-e .意为-extension *，-w dev监视dev目录）
+      supervisor.run(('-w dev -e js,html ./config/express/server.dev.js').split(' '));
+    });
+  },
+  // 文件编译+压缩+server启动
+  serverDist: function () {
+    this.staticDist(function () {
+      require('./config/express/server.dist.js');
+    });
+  }
+};
+gulp.task('default', function () {
+  inquirer.prompt([
+    {
+      type: 'rawlist',
+      name: 'env',
+      message: 'please choose environment:',
+      choices: [
+        'staticDev',
+        'staticDist',
+        'serverDev',
+        'serverDist'
+      ]
     }
-  );
-});
-
-// ************************************ 文件编译(npm run build) ************************************
-gulp.task('dist', ['task_clean_dist'], () => {
-  runSequence(
-    'task_sprite',
-    ['task_css_dist', 'task_img_dist', 'task_js_dist'],
-    'task_html_dist',
-    'task_router_dist',
-    'task_clean_temp',
-    function () {
-      console.log('>>>>>>>>>>>>>>> gulp全部任务执行完毕。' + util.getNow());
-    }
-  );
+  ]).then((answer) => {
+    entry[answer.env]();
+  });
 });
 
 // ************************************ 创建新模块(npm run create) ************************************
@@ -350,25 +384,5 @@ gulp.task('create', () => {
       })
     ;
     console.log('>>>>>>>>>>>>>>> ' + answer.page + '模块' + file + '文件创建完毕。' + util.getNow());
-  });
-});
-
-// ************************************ 启动express http服务(npm run server) ************************************
-gulp.task('server', () => {
-  inquirer.prompt([
-    {
-      type: 'rawlist',
-      name: 'env',
-      message: 'please choose environment:',
-      choices: ['dev', 'dist']
-    }
-  ]).then((answer) => {
-    console.log(JSON.stringify(answer, ' ', 2));
-    if(answer.env == 'dev'){
-      // supervisor -w dev -e js server.js（-e .意为-extension *，-w dev监视dev目录）
-      supervisor.run(('-w dev -e js,html ./config/express/server.dev.js').split(' '));
-    }else{
-      require('./config/express/server.dist.js');
-    }
   });
 });

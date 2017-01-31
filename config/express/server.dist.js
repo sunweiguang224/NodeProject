@@ -1,3 +1,3 @@
 var server = require('./server.js');
 
-server('dist');
+server('dist', 10004);
