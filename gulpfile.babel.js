@@ -96,7 +96,7 @@ gulp.task('task_sprite', () => {
         let baseName = iconDir.substring(iconDir.lastIndexOf('/') + 1);
         let stream = gulp.src(iconDir + '/*')
           .pipe(spritesmith({
-            cssTemplate: './config/spritesmith/spritesmith.css' + (Path.env == 'pc' ? '.pc' : '') + '.hbs',
+            cssTemplate: `./config/spritesmith/spritesmith.css.${Path.env}.hbs`,
             padding: 10,
             layout: 'top-down',
             imgName: '_' + baseName + '.png',
@@ -202,7 +202,7 @@ function compileHtml(options) {
   return gulp.src(options.src)
     .pipe(fileInclude({
       prefix: '@@',
-      basepath: __dirname + '/src/'
+      basepath: __dirname + '/'
     }))
     .pipe(replace('{{path}}', options.path))
     .pipe(replace('{{min}}', options.compress))
