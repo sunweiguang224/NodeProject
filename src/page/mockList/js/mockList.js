@@ -70,6 +70,9 @@ class Biz {
         });
       }
     });
+    $(document).on('click', '.modifyBtn', function () {
+      location.href = `/mockAdd?id=${$(this).data('id')}`;
+    });
     $(document).on('click', '.lookBtn', function () {
       open(`${location.origin}${$(this).parent().siblings('.path').html()}`);
     });

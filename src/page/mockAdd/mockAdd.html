@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>添加模拟数据</title>
+	<title>{{if id}}修改模拟数据{{else}}添加模拟数据{{/if}}</title>
 	<meta name="keywords" content="添加模拟数据"/>
 	<meta name="description" content="添加模拟数据"/>
 	@@include('src/common/tpl/meta.pc.tpl')
@@ -14,17 +14,17 @@
       <div class="item">
         <span class="field">路径:</span>
         <span class="input">
-          <input id="path" type="text" value="/mock/xxx">
+          <input id="path" type="text" value="{{path || '/mock/xxx'}}">
         </span>
       </div>
       <div class="item">
         <span class="field">数据生成规则:</span>
         <span class="input">
-          <textarea id="json"></textarea>
+          <textarea id="json">{{json}}</textarea>
         </span>
       </div>
       <div class="item submit">
-        <button id="submit">提交</button>
+        <button id="submit">{{if id}}修改{{else}}新增{{/if}}</button>
       </div>
     </div>
 	</div>

@@ -16,7 +16,7 @@ var db = function (method) {
     method && method(connection);
   } catch (error) {
     console.error(error.toString());
-    throw error;
+    // throw error;
   } finally {
     //关闭连接
     connection.end();

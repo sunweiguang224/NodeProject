@@ -15,15 +15,11 @@
       vertical-align: top;
     }
     .operator {
-      width: 80px;
-      .deleteBtn {
+      width: 120px;
+      .btn{
         padding: 3px;
         cursor: pointer;
-      }
-      .lookBtn {
-        padding: 3px;
-        cursor: pointer;
-        margin-left: 5px;
+        margin-left: 2px;
       }
     }
     .num {
@@ -36,7 +32,7 @@
       width: 200px;
     }
     .mock {
-      width: 350px;
+      width: 320px;
     }
     &.add {
       text-align: center;

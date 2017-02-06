@@ -21,8 +21,9 @@
       {{each rows}}
       <div class="row item">
         <span class="field operator">
-          <button class="deleteBtn" data-id="{{$value.id}}">删除</button>
-          <button class="lookBtn" data-id="{{$value.id}}">查看</button>
+          <button class="btn deleteBtn" data-id="{{$value.id}}">删除</button>
+          <button class="btn modifyBtn" data-id="{{$value.id}}">修改</button>
+          <button class="btn lookBtn" data-id="{{$value.id}}">查看</button>
         </span>
         <span class="field num">{{rows.length - $index}}</span>
         <span class="field path">{{$value.path}}</span>
@@ -35,6 +36,7 @@
       </div>
     </div>
 	</div>
+  <img src="{{path}}/page/mockList/img/test.png" alt="">
 	<script src="{{path}}/common/js/common.bundle{{min}}.js"></script>
 	<script src="{{path}}/page/mockList/js/mockList.bundle{{min}}.js"></script>
 </body>

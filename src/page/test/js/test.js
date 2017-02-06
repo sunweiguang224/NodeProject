@@ -11,6 +11,7 @@ import $ from 'jquery';
 import path from 'path';
 import helper from 'helper';
 import lazyload from 'lazyload';
+import SwgFullPage from 'SwgFullPage';
 
 class Biz {
 	/* 构造方法 */
@@ -20,6 +21,8 @@ class Biz {
 
 	/* 初始化页面 */
 	init() {
+    new SwgFullPage().init();
+    return;
 		var ts = this;
 		// 先渲染页面，再绑定事件
 		$.when(

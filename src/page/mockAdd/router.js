@@ -5,27 +5,60 @@ var mockjs = require('mockjs');
 
 var router = express.Router();
 
-// 添加页面
+// 新增+修改页面
 router.get('/mockAdd', function (req, res, next) {
-  res.render(__dirname + '/../../../dev/page/mockAdd/mockAdd.html');
+  if (req.query.id) {
+    db(function (connection) {
+      connection.query('SELECT * from mock where id=' + req.query.id, function (err, rows, fields) {
+        if (err) throw err;
+        console.log(JSON.stringify(rows[0]));
+        res.render(__dirname + '/../../../dev/page/mockAdd/mockAdd.html', rows[0]);
+      });
+    });
+  } else {
+    res.render(__dirname + '/../../../dev/page/mockAdd/mockAdd.html');
+  }
 });
 
-// 添加接口
+// 新增+修改接口
 router.get('/mockAdd_interface', function (req, res, next) {
-  db(function (connection) {
-    connection.query('insert into mock set ?', {
+  if (req.query.id) {
+    console.log({
+      id: req.query.id,
       path: req.query.path,
       json: req.query.json
-    }, function (err) {
-      var result = '添加成功';
-      if (err) {
-        result = '添加失败  ' + err.toString();
-      }
-      // 输出
-      res.write(result);
-      res.end();
+    })
+    db(function (connection) {
+      connection.query('update mock set path = ?, json = ? where id = ?', [
+        req.query.path,
+        req.query.json,
+        req.query.id
+      ], function (err) {
+        var result = '修改成功';
+        if (err) {
+          result = '修改失败  ' + err.toString();
+        }
+        // 输出
+        res.write(result);
+        res.end();
+      });
     });
-  });
+  } else {
+    db(function (connection) {
+      connection.query('insert into mock set ?', {
+        path: req.query.path,
+        json: req.query.json
+      }, function (err) {
+        var result = '添加成功';
+        if (err) {
+          result = '添加失败  ' + err.toString();
+        }
+        // 输出
+        res.write(result);
+        res.end();
+      });
+    });
+  }
 });
 
 // 返回模拟的数据
