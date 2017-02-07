@@ -1,1 +1,1 @@
-import a from './config/gulpfile.babel';
+require('./config/gulpfile.babel');

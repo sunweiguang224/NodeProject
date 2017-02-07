@@ -3,7 +3,8 @@ var mysql = require('mysql');
 var db = function (method) {
   // 创建连接,每次connection.end()之后都要重新创建
   var connection = mysql.createConnection({
-    host: 'localhost',
+    // host: 'localhost',
+    host: '10.211.55.4',
     user: 'root',
     password: 'swg224',
     database: 'mockserver'

@@ -276,6 +276,7 @@ let entry = {
         // 监听开发目录变化，触发liveReload刷新浏览器
         gulp.watch([`${Path.devRoot}/**/*`], function (file) {
           //setTimeout(function(){
+          console.log('文件改变:        '+path);
           liveReload.changed(file.path);
           //}, 1000);
         });
