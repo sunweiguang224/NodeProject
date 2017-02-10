@@ -212,8 +212,8 @@ gulp.task('task_html_dev', () => {
   return compileHtml({
     src: [Path.src.html],
     compress: '',
-    // path: '/' + util.getProjectName() + '/' + Path.devRoot  // html和其他静态一起产出时
-    path: ''  // 用express时
+    path: '/' + util.getProjectName() + '/' + Path.devRoot  // html和其他静态一起产出时
+    // path: ''  // 用express时
   })
     .pipe(gulp.dest(Path.devRoot))
     ;
@@ -222,8 +222,8 @@ gulp.task('task_html_dist', () => {
   return compileHtml({
     src: [Path.src.html, Path.tempRoot + '/rev-manifest/*.json'],
     compress: '.min',
-    // path: '/' + util.getProjectName() + '/' + Path.distRoot
-    path: ''  // nodejs
+    path: '/' + util.getProjectName() + '/' + Path.distRoot
+    // path: ''  // nodejs
   })
     .pipe(revCollector())
     .pipe(minifyHtml())
@@ -270,7 +270,7 @@ let entry = {
         // 监视图片变化
         gulp.watch([`${Path.srcRoot}/**/img/*.{png,jpg,gif}`], ['task_img_dev']);
         // 监视js、模板变化
-        gulp.watch([`${Path.srcRoot}/**/*.{js,tpl}`], ['task_js_dev']);
+        gulp.watch([`${Path.srcRoot}/**/*.{js,jsx,tpl}`], ['task_js_dev']);
         // 开启liveReload
         liveReload.listen();
         // 监听开发目录变化，触发liveReload刷新浏览器

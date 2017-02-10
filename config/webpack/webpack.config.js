@@ -29,7 +29,7 @@ module.exports = {
 		var filePaths = glob.sync(path);
 		for (var i in filePaths) {
 			var filePath = filePaths[i];		// 读取文件路径
-			var moduleName = filePath.replace(Path.srcRoot+'/', '').replace('.js', '');	// 文件编译后路径
+			var moduleName = filePath.replace(Path.srcRoot+'/', '').replace('.jsx', '').replace('.js', '');	// 文件编译后路径
 			entry[moduleName] = './' + filePath;
 		}
 		return entry;
@@ -61,7 +61,8 @@ module.exports = {
 			{test: /\.tpl$/, loader: "tmodjs"},	// artTemplate的webpack版
 			{test: /\.json$/, loader: "json"},	// json-loader，.json一般用于放假数据
 			//{test: /\.png$/, loader: "url-loader?limit=102400" }	//引起gulp-uglify报错，原因不详// require100KB以下的图片将得到base64编码
-      {test: /\.js$/, exclude: /node_modules/, loader: 'babel-loader'},
+      {test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
+      {test: /\.jsx$/, exclude: /node_modules/, loader: 'babel'},
 		]
 	},
 };

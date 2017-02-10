@@ -35,7 +35,7 @@ Path.src = {
 	router: Path.srcRoot + '/*page/'+pageName+'/*.js',
 	js: {
 		common: Path.srcRoot + '/*common/js/*.js',	// 由nodejs负责
-		page: Path.srcRoot + '/*page/'+pageName+'/js/*.js'		// 由webpack负责
+		page: Path.srcRoot + '/*page/'+pageName+'/js/*.js*'		// 由webpack负责(js或者jsx,jsx给react用)
 	},
 	generator: {
     m: [
