@@ -14,6 +14,7 @@ import lazyload from 'lazyload';
 import param from 'param';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactRender from '../../../widget/ReactRender/ReactRender.jsx';
 
 class Biz {
 	/* 构造方法 */
@@ -66,19 +67,6 @@ class Biz {
 	}
 }
 
-class ReactRender extends React.Component{
-  constructor(){
-    super();
-  }
-  render(){
-    return (
-      <div>
-        <h1>哈哈哈</h1>
-        <p>PPPP</p>
-      </div>
-    )
-  }
-}
 
 // 开始执行
 $(document).on('DOMContentLoaded', function () {

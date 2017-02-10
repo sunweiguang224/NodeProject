@@ -56,13 +56,13 @@ module.exports = {
 	},
 	module: {
 		loaders: [
-			{test: /\.css$/, loaders: ['style', 'css']},	// style-loader,css-loader共同作用于.css文件。 前者将 css 文件以 <style></style> 标签插入 <head> 头部，后者负责解读、加载 CSS 文件。
-			{test: /\.scss$/, loader: 'style!css!sass'},	// sass-loader 加载sass文件。等价于上面数组写法。
+			// {test: /\.css$/, loaders: ['style', 'css']},	// style-loader,css-loader共同作用于.css文件。 前者将 css 文件以 <style></style> 标签插入 <head> 头部，后者负责解读、加载 CSS 文件。
+			{test: /\.scss$/, loader: 'style!css!sass'},	// ?modules css-loader后面加了一个查询参数modules，表示打开 CSS Modules 功能。style-loader,css-loader共同作用于.css文件。 前者将 css 文件以 <style></style> 标签插入 <head> 头部，后者负责解读、加载 CSS 文件。sass-loader 加载sass文件。等价于上面数组写法。
 			{test: /\.tpl$/, loader: "tmodjs"},	// artTemplate的webpack版
 			{test: /\.json$/, loader: "json"},	// json-loader，.json一般用于放假数据
 			//{test: /\.png$/, loader: "url-loader?limit=102400" }	//引起gulp-uglify报错，原因不详// require100KB以下的图片将得到base64编码
-      {test: /\.js$/, exclude: /node_modules/, loader: 'babel'},
-      {test: /\.jsx$/, exclude: /node_modules/, loader: 'babel'},
+      {test: /\.js$/, loader: 'babel', exclude: /node_modules/},
+      {test: /\.jsx$/, loader: 'babel', exclude: /node_modules/},
 		]
 	},
 };

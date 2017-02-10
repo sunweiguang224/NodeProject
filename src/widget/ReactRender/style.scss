@@ -1,0 +1,8 @@
+@charset "UTF-8";
+@import '../../common/css/util/variable';
+@import '../../common/css/util/_mixin';
+
+body .aaa{
+  @include square(200px);
+  background: red;
+}
