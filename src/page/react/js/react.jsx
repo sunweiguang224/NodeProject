@@ -14,7 +14,7 @@ import lazyload from 'lazyload';
 import param from 'param';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactRender from '../../../widget/ReactDemo/component.jsx';
+import ReactRender from '../../../widget/ReactDemo/com.jsx';
 
 class Biz {
 	/* 构造方法 */

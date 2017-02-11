@@ -8,8 +8,6 @@ var helper = require('helper');
 require('lazyload');
 var $ = require('jquery');
 
-debugger
-
 function Biz() {
 	var $body = $('body');
 	//var tpl = require('../tpl/demo.tpl')({a: Date.now()});
