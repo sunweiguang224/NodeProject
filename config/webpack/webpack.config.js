@@ -46,18 +46,23 @@ module.exports = {
     * 提供全局的变量，在模块(entry指定的)中使用无需用require引入
     * 此处把jQuery变量提供给jquery-lazyload（因jquery-lazyload内部没有require('jquery')）
     */
-    //new webpack.ProvidePlugin({
-    //  jQuery: "jquery.js",
-    //  $: "jquery.js"
-    //}),
+    new webpack.ProvidePlugin({
+     // jQuery: "jquery.js",
+     // $: "jquery.js"
+    }),
+    // 压缩混淆js,如果require的是css,则会输出压缩的css代码, (不能和gulp-uglify同时用,dist时候有问题)
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   }
+    // })
   ],
 	output: {
 		filename: "[name].bundle.js"
 	},
 	module: {
 		loaders: [
-			// {test: /\.css$/, loaders: ['style', 'css']},	// style-loader,css-loader共同作用于.css文件。 前者将 css 文件以 <style></style> 标签插入 <head> 头部，后者负责解读、加载 CSS 文件。
-			{test: /\.scss$/, loader: 'style!css!sass'},	// ?modules css-loader后面加了一个查询参数modules，表示打开 CSS Modules 功能。style-loader,css-loader共同作用于.css文件。 前者将 css 文件以 <style></style> 标签插入 <head> 头部，后者负责解读、加载 CSS 文件。sass-loader 加载sass文件。等价于上面数组写法。
+			{test: /\.scss$/, loader: 'style!css!sass'},	// ?modules css-loader后面加了一个查询参数modules，表示打开 CSS Modules 功能。style-loader,css-loader共同作用于.css文件。 前者将 css 文件以 <style></style> 标签插入 <head> 头部，后者负责解读、加载 CSS 文件。sass-loader 加载sass文件。等价于上面数组写法。webpack的loader的配置是从右往左的，从上面代码看的话，就是先使用css-loader之后使用style-loader
 			{test: /\.tpl$/, loader: "tmodjs"},	// artTemplate的webpack版
 			{test: /\.json$/, loader: "json"},	// json-loader，.json一般用于放假数据
 			//{test: /\.png$/, loader: "url-loader?limit=102400" }	//引起gulp-uglify报错，原因不详// require100KB以下的图片将得到base64编码
