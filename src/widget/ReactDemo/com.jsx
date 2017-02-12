@@ -9,7 +9,7 @@ export default class ReactRender extends React.Component {
 
   }
   
-  render() {
+  render() { 
     return (
       <div>
         <h1 className="bbccdd" onClick={this.clickHandler}>

@@ -60,7 +60,7 @@ function compileCss() {
     .pipe(sass({outputStyle: 'uncompressed'}))
     .pipe(sourcemaps.write({includeContent: false}))  // 使用处理之前的源文件，当CSS被多个插件处理时，要加这句话，否则对应关系会错乱
     .pipe(autoprefixer({
-      browsers: ['last 2 versions'], cascade: false
+      browsers: ['last 5 versions'], cascade: false
     }))
     ;
 }

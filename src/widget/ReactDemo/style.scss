@@ -6,7 +6,7 @@ body{
   .bbccdd{
     @include square(200px);
     background: red;
-    flex: 1;
+    display: flex;
   }
 }
 .body1{
