@@ -3,7 +3,7 @@
  * 功能描述: 首页
  * 作者: swg
  */
-var PATH = require('PATH');
+var PATH = require('path');
 var helper = require('helper');
 require('lazyload');
 var $ = require('jquery');
