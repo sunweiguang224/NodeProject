@@ -55,7 +55,7 @@ class Biz {
 
   /* 绑定事件 */
   bindEvent() {
-    $(document).on('click', 'deleteBtn', function () {
+    $(document).on('click', '.deleteBtn', function () {
       if (confirm('确定要删除这条记录吗?')) {
         $.ajax({
           async: true,

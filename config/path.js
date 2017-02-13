@@ -12,9 +12,11 @@ const Path = {
   tempRoot: '.temp'
 };
 
-
 /*默认无值移动端,这个值决定npm run create时使用pc或mobile模板*/
 Path.env = 'pc';
+
+/*取值 static 或 express*/
+Path.output = 'express';
 
 Path.src = {
 	css: [

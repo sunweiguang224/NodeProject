@@ -212,8 +212,13 @@ gulp.task('task_html_dev', () => {
   return compileHtml({
     src: [Path.src.html],
     compress: '',
-    path: '/' + util.getProjectName() + '/' + Path.devRoot  // html和其他静态一起产出时
-    // path: ''  // 用express时
+    path: function () {
+      if (Path.output == 'static') {
+        return '/' + util.getProjectName() + '/' + Path.distRoot; // html和其他静态一起产出时
+      } else if (Path.output == 'express') {
+        return ''; // nodejs
+      }
+    }()
   })
     .pipe(gulp.dest(Path.devRoot))
     ;
@@ -222,8 +227,13 @@ gulp.task('task_html_dist', () => {
   return compileHtml({
     src: [Path.src.html, Path.tempRoot + '/rev-manifest/*.json'],
     compress: '.min',
-    path: '/' + util.getProjectName() + '/' + Path.distRoot
-    // path: ''  // nodejs
+    path: function () {
+      if (Path.output == 'static') {
+        return '/' + util.getProjectName() + '/' + Path.distRoot;
+      } else if (Path.output == 'express') {
+        return ''; // nodejs
+      }
+    }()
   })
     .pipe(revCollector())
     .pipe(minifyHtml())
@@ -276,7 +286,7 @@ let entry = {
         // 监听开发目录变化，触发liveReload刷新浏览器
         gulp.watch([`${Path.devRoot}/**/*`], function (file) {
           //setTimeout(function(){
-          console.log('文件改变:        '+path);
+          console.log('文件改变:        ' + path);
           liveReload.changed(file.path);
           //}, 1000);
         });
