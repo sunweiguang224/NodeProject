@@ -19,6 +19,8 @@ module.exports = {
         var filePath = filePaths[i];
         alias[path.basename(filePath).replace('.js', '')] = filePath;
       }
+      console.log('已加载webpack alias:');
+      console.log(alias);
       return alias;
     })()
   },
