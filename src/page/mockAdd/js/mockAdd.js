@@ -59,12 +59,18 @@ class Biz {
   bindEvent() {
     // 提交按钮点击
     $('#submit').click(function () {
+      debugger
       if (!$('#path').val().startsWith('/mock/')) {
         alert('路径必须以 /mock/ 开头')
         return;
       }
       try {
-        mockjs.mock(JSON.parse($('#json').val()));
+        var json = $('#json').val();
+        if(json.length > 9999){
+          throw new Error('json规则不能超过9999个字符。')
+        }
+        json = json.replace(/[ \t\n\r]/g, '');
+        mockjs.mock(JSON.parse(json));
       } catch (error) {
         alert(error.toString());
         return;
@@ -76,7 +82,7 @@ class Biz {
         data: {
           id: param.get('id'),
           path: $('#path').val(),
-          json: $('#json').val(),
+          json: json,
         }
       }).then(function (data) {
         alert(data);

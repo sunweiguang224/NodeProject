@@ -16,7 +16,7 @@
         <span class="field num">序号:</span>
         <span class="field path">路径:</span>
         <span class="field json">规则:</span>
-        <span class="field mock">模拟:</span>
+        <!--<span class="field mock">模拟:</span>-->
       </div>
       {{each rows}}
       <div class="row item">
@@ -28,7 +28,7 @@
         <span class="field num">{{rows.length - $index}}</span>
         <span class="field path">{{$value.path}}</span>
         <span class="field json">{{$value.json}}</span>
-        <span class="field mock">{{$value.json | mock}}</span>
+        <!--<span class="field mock">{{$value.json | mock}}</span>-->
       </div>
       {{/each}}
       <div class="row add">

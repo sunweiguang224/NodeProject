@@ -28,7 +28,7 @@ router.get('/mockAdd_interface', function (req, res, next) {
       id: req.query.id,
       path: req.query.path,
       json: req.query.json
-    })
+    });
     db(function (connection) {
       connection.query('update mock set path = ?, json = ? where id = ?', [
         req.query.path,

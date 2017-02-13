@@ -13,9 +13,16 @@ module.exports = function(templete) {
   });
   /**
    * 调用mockjs
-   * 用法：{{json | mock}}
+   * 用法：{{json字符串 | mock}}
    */
   templete.helper('mock', function (json) {
     return JSON.stringify(mockjs.mock(JSON.parse(json)));
+  });
+  /**
+   * 格式化json字符串
+   * 用法：{{json字符串 | jsonFormat}}
+   */
+  templete.helper('jsonFormat', function (json) {
+    return JSON.stringify(JSON.parse(json), ' ', 2);
   });
 };

@@ -8,11 +8,13 @@
   width: 80%;
   .row {
     padding: 5px;
-    border-top: 1px solid #ddd;
+    &:not(:last-of-type){
+      border-top: 1px solid #ddd;
+    }
     .field {
       padding: 5px 10px;
       display: inline-block;
-      vertical-align: top;
+      vertical-align: middle;
     }
     .operator {
       width: 120px;
@@ -26,10 +28,11 @@
       width: 30px;
     }
     .path {
-      width: 100px;
+      width: 130px;
     }
     .json {
-      width: 200px;
+      width: 530px;
+      @include ellipsis(1);
     }
     .mock {
       width: 320px;
