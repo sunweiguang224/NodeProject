@@ -8,7 +8,7 @@
  //var json = require('../json/demo.json');
  */
 import $ from 'jquery';
-import PATH from 'PATH';
+import PATH from 'path';
 import helper from 'helper';
 import lazyload from 'lazyload';
 import param from 'param';
