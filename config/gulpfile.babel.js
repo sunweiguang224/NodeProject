@@ -214,7 +214,7 @@ gulp.task('task_html_dev', () => {
     compress: '',
     path: function () {
       if (Path.output == 'static') {
-        return '/' + util.getProjectName() + '/' + Path.distRoot; // html和其他静态一起产出时
+        return '/' + util.getProjectName() + '/' + Path.devRoot; // html和其他静态一起产出时
       } else if (Path.output == 'express') {
         return ''; // nodejs
       }
@@ -312,14 +312,14 @@ let entry = {
   },
   // 文件编译+监听+server启动
   serverDev: function () {
-    this.staticDev(function () {
+    entry.staticDev(function () {
       // supervisor -w dev -e js server.js（-e .意为-extension *，-w dev监视dev目录）
       supervisor.run(('-w dev -e js,html ./config/express/server.dev.js').split(' '));
     });
   },
   // 文件编译+压缩+server启动
   serverDist: function () {
-    this.staticDist(function () {
+    entry.staticDist(function () {
       require('./express/server.dist.js');
     });
   }
@@ -341,6 +341,7 @@ gulp.task('default', function () {
     entry[answer.env]();
   });
 });
+gulp.task('serverDev', entry.serverDev);
 
 // ************************************ 创建新模块(npm run create) ************************************
 gulp.task('create', () => {

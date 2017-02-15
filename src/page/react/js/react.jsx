@@ -14,6 +14,7 @@ import lazyload from 'lazyload';
 import param from 'param';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactDOMServer from 'react-dom/server';
 import ReactRender from '../../../widget/ReactDemo/com.jsx';
 
 class Biz {
@@ -67,9 +68,17 @@ class Biz {
 	}
 }
 
-
 // 开始执行
 $(document).on('DOMContentLoaded', function () {
 	// new Biz();
-  ReactDOM.render(<ReactRender/>, document.querySelector('.g-container'));
+  // var aaaaa = ReactDOMServer.renderToString(<ReactRender/>);
+  // var bbbbb = ReactDOMServer.renderToStaticMarkup(<ReactRender/>);
+  let list = [1,2,3];
+  function changeList(){
+    debugger
+    obj.setProps({
+      list: [1]
+    });
+  }
+  let obj = ReactDOM.render(<ReactRender list={list} changeList={changeList}/>, document.querySelector('.g-container'));
 });
