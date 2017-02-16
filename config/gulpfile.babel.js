@@ -340,8 +340,8 @@ gulp.task('default', function () {
   ]).then((answer) => {
     entry[answer.env]();
   });
+  // entry['serverDev']();
 });
-gulp.task('serverDev', entry.serverDev);
 
 // ************************************ 创建新模块(npm run create) ************************************
 gulp.task('create', () => {

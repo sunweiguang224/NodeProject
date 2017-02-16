@@ -16,8 +16,8 @@ const Path = {
 Path.env = 'pc';
 
 /*取值 static 或 express*/
-Path.output = 'static';
-// Path.output = 'express';
+// Path.output = 'static';
+Path.output = 'express';
 
 Path.src = {
 	css: [

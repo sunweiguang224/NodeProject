@@ -59,7 +59,6 @@ class Biz {
   bindEvent() {
     // 提交按钮点击
     $('#submit').click(function () {
-      debugger
       if (!$('#path').val().startsWith('/mock/')) {
         alert('路径必须以 /mock/ 开头')
         return;
@@ -83,6 +82,7 @@ class Biz {
           id: param.get('id'),
           path: $('#path').val(),
           json: json,
+          des: $('#des').val(),
         }
       }).then(function (data) {
         alert(data);

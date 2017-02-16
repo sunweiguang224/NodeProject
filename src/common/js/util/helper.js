@@ -3,7 +3,7 @@ var mockjs = require('mockjs');
 /**
  * 功能描述：为artTemplate提供工具方法
  */
-module.exports = function(templete) {
+module.exports = function (templete) {
   /**
    * 日期格式化
    * 用法：{{时间戳 | dateFormat:'yyyy-MM-dd hh:mm:ss SSS'}}
@@ -23,6 +23,13 @@ module.exports = function(templete) {
    * 用法：{{json字符串 | jsonFormat}}
    */
   templete.helper('jsonFormat', function (json) {
-    return JSON.stringify(JSON.parse(json), ' ', 2);
+    if (json) {
+      for (var i = 0; i < 10; i++) {
+        console.log(json)
+      }
+      return JSON.stringify(JSON.parse(json), ' ', 2);
+    } else {
+      return '';
+    }
   });
 };
