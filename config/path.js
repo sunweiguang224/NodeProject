@@ -2,7 +2,7 @@ var minimist = require('minimist'); // 获取key-value形势的参数，如 npm 
 
 // 分模块编译，优先级：命令行 > 指定 > 全部，
 var args = minimist(process.argv);
-var pageName = args.name || '' || '*';
+var pageName = args.name || 'vue' || '*';
 
 // ************************************ 变量Path ************************************
 const Path = {
@@ -16,8 +16,8 @@ const Path = {
 Path.env = 'pc';
 
 /*取值 static 或 express*/
-// Path.output = 'static';
-Path.output = 'express';
+Path.output = 'static';
+// Path.output = 'express';
 
 Path.src = {
 	css: [
