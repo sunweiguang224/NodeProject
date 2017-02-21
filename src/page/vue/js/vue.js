@@ -12,56 +12,23 @@ import PATH from 'path';
 import helper from 'helper';
 import lazyload from 'lazyload';
 import param from 'param';
-import VueDemo from '../../../widget/VueDemo/VueDemo.vue';
+import Vue from 'vue';
+import List from '../vue/List.vue';
 
 class Biz {
 	/* 构造方法 */
 	constructor() {
-    this.params = param.getAll();
-		this.init();
-	}
 
-	/* 初始化页面 */
-	init() {
-		// 先渲染页面，再绑定事件
-		$.when(
-			this.get(),
-			this.get()
-		).then(() => {
-			this.bindEvent();
-		})
-	}
-
-	/* 获取数据- */
-	get() {
-    return;
-    let defer = $.Deferred();
-		$.ajax({
-			async: true,
-			url: PATH.interface + '/xxx',
-			type: 'get',
-			data: {}
-		}).then(data => {
-			this.render(data);
-			defer.resolve();
-		});
-		return defer;
-	}
-
-	/* 渲染- */
-	render(data) {
-		//var html = require('../tpl/xxx.tpl')(data);
-		//$('xxx').html(html);
-	}
-
-	/* 绑定事件 */
-	bindEvent() {
-
-	}
-
-	/* 工具方法 */
-	util() {
-
+    new Vue({
+      el: '#list',
+      template: '<List v-bind:lis="lis" v-bind:t1="333333"/>',
+      components: {
+        List,
+      },
+      data: {
+        lis: ['1114eeeeeeeeeeeedddddddd', 333, 6566, 123],
+      }
+    })
 	}
 }
 

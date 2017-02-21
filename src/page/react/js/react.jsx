@@ -22,6 +22,17 @@ class Biz {
 	constructor() {
     this.params = param.getAll();
 		this.init();
+    
+    // var aaaaa = ReactDOMServer.renderToString(<ReactRender/>);
+    // var bbbbb = ReactDOMServer.renderToStaticMarkup(<ReactRender/>);
+    let list = [1,2,3];
+    function changeList(){
+      debugger
+      obj.setProps({
+        list: [1]
+      });
+    }
+    let obj = ReactDOM.render(<ReactRender list={list} changeList={changeList}/>, document.querySelector('.g-container'));
 	}
 
 	/* 初始化页面 */
@@ -71,14 +82,4 @@ class Biz {
 // 开始执行
 $(document).on('DOMContentLoaded', function () {
 	// new Biz();
-  // var aaaaa = ReactDOMServer.renderToString(<ReactRender/>);
-  // var bbbbb = ReactDOMServer.renderToStaticMarkup(<ReactRender/>);
-  let list = [1,2,3];
-  function changeList(){
-    debugger
-    obj.setProps({
-      list: [1]
-    });
-  }
-  let obj = ReactDOM.render(<ReactRender list={list} changeList={changeList}/>, document.querySelector('.g-container'));
 });

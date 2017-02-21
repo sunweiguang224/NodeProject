@@ -3,7 +3,7 @@
  */
 var newUrl = location.href;
 //newUrl = newUrl.replace('localhost', '10.0.69.136');
-if(newUrl.indexOf('/src') !== -1){
+if(newUrl.indexOf('NodeProject/src/page') !== -1){
   newUrl = newUrl.replace('/src', '/dev');
   location.href = newUrl;
 }
