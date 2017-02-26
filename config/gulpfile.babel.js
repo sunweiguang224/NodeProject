@@ -219,9 +219,7 @@ gulp.task('task_html_dev', () => {
         return ''; // nodejs
       }
     }()
-  })
-    .pipe(gulp.dest(Path.devRoot))
-    ;
+  }).pipe(gulp.dest(Path.devRoot));
 });
 gulp.task('task_html_dist', () => {
   return compileHtml({
@@ -286,7 +284,7 @@ let entry = {
         // 监听开发目录变化，触发liveReload刷新浏览器
         gulp.watch([`${Path.devRoot}/**/*`], function (file) {
           //setTimeout(function(){
-          console.log('文件改变:        ' + path);
+          // console.log('文件改变:        ' + path);
           liveReload.changed(file.path);
           //}, 1000);
         });
@@ -325,22 +323,22 @@ let entry = {
   }
 };
 gulp.task('default', function () {
-  inquirer.prompt([
-    {
-      type: 'rawlist',
-      name: 'env',
-      message: 'please choose environment:',
-      choices: [
-        'staticDev',
-        'staticDist',
-        'serverDev',
-        'serverDist'
-      ]
-    }
-  ]).then((answer) => {
-    entry[answer.env]();
-  });
-  // entry['serverDev']();
+  // inquirer.prompt([
+  //   {
+  //     type: 'rawlist',
+  //     name: 'env',
+  //     message: 'please choose environment:',
+  //     choices: [
+  //       'staticDev',
+  //       'staticDist',
+  //       'serverDev',
+  //       'serverDist'
+  //     ]
+  //   }
+  // ]).then((answer) => {
+  //   entry[answer.env]();
+  // });
+  entry['staticDev']();
 });
 
 // ************************************ 创建新模块(npm run create) ************************************

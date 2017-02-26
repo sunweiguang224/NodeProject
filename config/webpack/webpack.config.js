@@ -53,6 +53,16 @@ module.exports = {
       // jQuery: "jquery.js",
       // $: "jquery.js"
     }),
+    // new webpack.DefinePlugin({
+    //   'process.env': {
+    //     NODE_ENV: '"production"'
+    //   }
+    // }),
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false
+    //   }
+    // })
     // 压缩混淆js,如果require的是css,则会输出压缩的css代码, (不能和gulp-uglify同时用,dist时候有问题)
     // new webpack.optimize.UglifyJsPlugin({
     //   compress: {

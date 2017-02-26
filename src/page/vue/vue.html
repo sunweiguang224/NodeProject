@@ -12,7 +12,16 @@
 </head>
 <body>
 	<div class="g-container">
-    <div id="list"></div>
+    <span id="list111"></span>
+    <div id="recursion"></div>
+
+    <div id="app-4" style="visibility: hidden;">
+      <ol>
+        <li v-for="todo in todos">
+          {{ todo.text }}
+        </li>
+      </ol>
+    </div>
 	</div>
   <!--<script src="https://unpkg.com/vue/dist/vue.js"></script>-->
 	<script src="{{path}}/common/js/common.bundle{{min}}.js"></script>
