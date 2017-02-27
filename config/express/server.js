@@ -14,7 +14,9 @@ module.exports = function (env, port) {
 
   /*总路由*/
   var server = express();
-
+for(var i=0;i<10;i++){
+  console.log(__dirname + '/' + relativePath + env)
+}
   /*静态文件*/
   server.use('/', express.static(__dirname + '/' + relativePath + env));
 

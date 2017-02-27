@@ -5,8 +5,8 @@
  * 前提需要先安装babel-core、babel-preset-es2015、babel-preset-stage-0
  */
 // 引入组件
-import util from './util.js';
-import Path from './path.js';
+import NodeUtil from './NodeUtil.js';
+import Config from './Config.js';
 import gulp from 'gulp';
 //$ = require('gulp-load-plugins')(),		//插件加载器，启动加载devDependencies中所有插件
 import uglify from 'gulp-uglify';		// js压缩混淆
@@ -40,22 +40,22 @@ import supervisor from 'supervisor';		// 监控文件修改，并重启进程
 
 // ************************************ 编译目录清理 ************************************
 gulp.task('task_clean_dev', () => {
-  console.log('>>>>>>>>>>>>>>> 开发目录开始清理。' + util.getNow());
-  return gulp.src(Path.devRoot).pipe(clean());
+  console.log('>>>>>>>>>>>>>>> 开发目录开始清理。' + NodeUtil.getNow());
+  return gulp.src(Config.developPath.root).pipe(clean());
 });
 gulp.task('task_clean_dist', () => {
-  console.log('>>>>>>>>>>>>>>> 发布目录开始清理。' + util.getNow());
-  return gulp.src(Path.distRoot).pipe(clean())
+  console.log('>>>>>>>>>>>>>>> 发布目录开始清理。' + NodeUtil.getNow());
+  return gulp.src(Config.productPath.root).pipe(clean())
 });
 gulp.task('task_clean_temp', () => {
-  console.log('>>>>>>>>>>>>>>> 临时目录开始清理。' + util.getNow());
-  return gulp.src(Path.tempRoot).pipe(clean())
+  console.log('>>>>>>>>>>>>>>> 临时目录开始清理。' + NodeUtil.getNow());
+  return gulp.src(Config.productPath.temp).pipe(clean())
 });
 
 // ************************************ 编译CSS ************************************
 function compileCss() {
-  console.log('>>>>>>>>>>>>>>> css文件开始编译。' + util.getNow());
-  return gulp.src(Path.src.css)		// return这个流是为了保证任务按顺序执行
+  console.log('>>>>>>>>>>>>>>> css文件开始编译。' + NodeUtil.getNow());
+  return gulp.src(Config.sourcePath.css)		// return这个流是为了保证任务按顺序执行
     .pipe(sourcemaps.init())	// 放到最开始才能对应原始的scss文件
     .pipe(sass({outputStyle: 'uncompressed'}))
     .pipe(sourcemaps.write({includeContent: false}))  // 使用处理之前的源文件，当CSS被多个插件处理时，要加这句话，否则对应关系会错乱
@@ -67,26 +67,26 @@ function compileCss() {
 gulp.task('task_css_dev', () => {
   return compileCss()
     .pipe(sourcemaps.write('./'))	// 写到目标css同级目录下
-    .pipe(gulp.dest(Path.devRoot))
+    .pipe(gulp.dest(Config.developPath.root))
     ;
 });
 gulp.task('task_css_dist', () => {
   return compileCss()
-    .pipe(header('\/* This css was compiled at ' + util.getNow() + '. *\/\n'))
+    .pipe(header('\/* This css was compiled at ' + NodeUtil.getNow() + '. *\/\n'))
     //.pipe(minifyCss())
     .pipe(rename({suffix: '.min'}))
     .pipe(rev())
-    .pipe(gulp.dest(Path.distRoot))
+    .pipe(gulp.dest(Config.productPath.root))
     .pipe(size({showFiles: true}))
     .pipe(rev.manifest('rev-manifest/css.json'))
-    .pipe(gulp.dest(Path.tempRoot))
+    .pipe(gulp.dest(Config.productPath.temp))
     ;
 });
 
 // ************************************ 合成雪碧图+生成scss ************************************
 gulp.task('task_sprite', () => {
-  console.log('>>>>>>>>>>>>>>> 开始合成雪碧图。' + util.getNow());
-  //let dirs = fs.readdirSync(Path.src.sprite);
+  console.log('>>>>>>>>>>>>>>> 开始合成雪碧图。' + NodeUtil.getNow());
+  //let dirs = fs.readdirSync(Config.sourcePath.sprite);
   let merged = mergeStream();
 
   function create(param) {
@@ -96,7 +96,7 @@ gulp.task('task_sprite', () => {
         let baseName = iconDir.substring(iconDir.lastIndexOf('/') + 1);
         let stream = gulp.src(iconDir + '/*')
           .pipe(spritesmith({
-            cssTemplate: `./config/spritesmith/spritesmith.css.${Path.env}.hbs`,
+            cssTemplate: `./config/spritesmith/spritesmith.css.${Config.runtime}.hbs`,
             padding: 10,
             layout: 'top-down',
             imgName: '_' + baseName + '.png',
@@ -110,21 +110,21 @@ gulp.task('task_sprite', () => {
 
   // page雪碧图
   let iconDirs = [];
-  iconDirs = iconDirs.concat(glob.sync(path.normalize(Path.src.icon.page + '/..')));
+  iconDirs = iconDirs.concat(glob.sync(path.normalize(Config.sourcePath.icon.page + '/..')));
   create({
     iconDirs: iconDirs,
     img: '/..',
     css: '/../../css/',
   });
   // common雪碧图
-  iconDirs = glob.sync(path.normalize(Path.src.icon.common + '/..'));
+  iconDirs = glob.sync(path.normalize(Config.sourcePath.icon.common + '/..'));
   create({
     iconDirs: iconDirs,
     img: '/..',
     css: '/../../css/icon/',
   });
   // widget雪碧图
-  iconDirs = glob.sync(path.normalize(Path.src.icon.widget + '/..'));
+  iconDirs = glob.sync(path.normalize(Config.sourcePath.icon.widget + '/..'));
   create({
     iconDirs: iconDirs,
     img: '/..',
@@ -135,37 +135,37 @@ gulp.task('task_sprite', () => {
 
 // ************************************ 编译图片 ************************************
 function compileImg() {
-  console.log('>>>>>>>>>>>>>>> 图片文件开始编译。' + util.getNow());
-  return gulp.src(Path.src.img);
+  console.log('>>>>>>>>>>>>>>> 图片文件开始编译。' + NodeUtil.getNow());
+  return gulp.src(Config.sourcePath.img);
 }
 gulp.task('task_img_dev', () => {
   return compileImg()
-    .pipe(gulp.dest(Path.devRoot))
+    .pipe(gulp.dest(Config.developPath.root))
     ;
 });
 gulp.task('task_img_dist', () => {
   return compileImg()
     .pipe(imagemin())
-    .pipe(gulp.dest(Path.distRoot))
+    .pipe(gulp.dest(Config.productPath.root))
     .pipe(size({showFiles: true}));
 });
 
 // ************************************ 编译JS ************************************
 function webpackCompileJs() {
-  console.log('>>>>>>>>>>>>>>> js文件开始编译。' + util.getNow());
+  console.log('>>>>>>>>>>>>>>> js文件开始编译。' + NodeUtil.getNow());
   let webpackConfig = require("./webpack/webpack.config.js");
   return gulp.src('')
     .pipe(webpack(webpackConfig))
-    .pipe(header('\/* This css was compiled at ' + util.getNow() + '. *\/\n'));
+    .pipe(header('\/* This css was compiled at ' + NodeUtil.getNow() + '. *\/\n'));
 }
 gulp.task('task_js_dev', () => {
   function deployDev(stream) {
-    return stream.pipe(gulp.dest(Path.devRoot))
+    return stream.pipe(gulp.dest(Config.developPath.root))
       ;
   }
 
   // common部分的js
-  deployDev(gulp.src(Path.src.js.common));
+  deployDev(gulp.src(Config.sourcePath.js.common));
   // page部分的js
   return deployDev(webpackCompileJs());
 });
@@ -178,15 +178,14 @@ gulp.task('task_js_dist', () => {
     }))
       .pipe(rename({suffix: '.min'}))
       .pipe(rev())
-      .pipe(gulp.dest(Path.distRoot))
+      .pipe(gulp.dest(Config.productPath.root))
       .pipe(rev.manifest(options.manifestPath))
-      .pipe(gulp.dest(Path.tempRoot))
+      .pipe(gulp.dest(Config.productPath.temp))
       ;
   }
-
   // common部分的js
   deployDist({
-    stream: gulp.src(Path.src.js.common),
+    stream: gulp.src(Config.sourcePath.js.common),
     manifestPath: 'rev-manifest/js-common.json'
   });
   // page部分的js
@@ -197,68 +196,79 @@ gulp.task('task_js_dist', () => {
 });
 
 // ************************************ 编译HTML ************************************
-function compileHtml(options) {
-  console.log('>>>>>>>>>>>>>>> html文件开始编译。' + util.getNow());
+let outputType = null;  // 代码输出方式, 'static'(静态文件) | 'server'(express服务)
+function compileHtml(isProduct) {
+  console.log('>>>>>>>>>>>>>>> html文件开始编译。' + NodeUtil.getNow());
+  var options = {
+    src: (function () {
+      if (isProduct) {
+        return [Config.sourcePath.html, Config.productPath.temp + '/rev-manifest/*.json'];
+      } else {
+        return [Config.sourcePath.html];
+      }
+    })(),
+    compress: isProduct ? '.min' : '',
+    path: (function () {
+      for(var i=0;i<10;i++){
+        console.log(outputType)
+      }
+      if (isProduct) {
+        if (outputType == 'server') {
+          return '';
+        } else if (outputType == 'static') {
+          return '/' + NodeUtil.getProjectName() + '/' + Config.productPath.root;
+        }
+      } else {
+        if (outputType == 'server') {
+          return '';
+        } else if (outputType == 'static') {
+          return '/' + NodeUtil.getProjectName() + '/' + Config.developPath.root;
+        }
+      }
+    })()
+  };
   return gulp.src(options.src)
     .pipe(fileInclude({
       prefix: '@@',
       basepath: __dirname + '/../'
     }))
     .pipe(replace('{{path}}', options.path))
-    .pipe(replace('{{min}}', options.compress))
-    ;
+    .pipe(replace('{{min}}', options.compress));
 }
+
 gulp.task('task_html_dev', () => {
-  return compileHtml({
-    src: [Path.src.html],
-    compress: '',
-    path: function () {
-      if (Path.output == 'static') {
-        return '/' + util.getProjectName() + '/' + Path.devRoot; // html和其他静态一起产出时
-      } else if (Path.output == 'express') {
-        return ''; // nodejs
-      }
-    }()
-  }).pipe(gulp.dest(Path.devRoot));
+  return compileHtml()
+    .pipe(gulp.dest(Config.developPath.root));
 });
 gulp.task('task_html_dist', () => {
-  return compileHtml({
-    src: [Path.src.html, Path.tempRoot + '/rev-manifest/*.json'],
-    compress: '.min',
-    path: function () {
-      if (Path.output == 'static') {
-        return '/' + util.getProjectName() + '/' + Path.distRoot;
-      } else if (Path.output == 'express') {
-        return ''; // nodejs
-      }
-    }()
-  })
+  return compileHtml(true)
     .pipe(revCollector())
     .pipe(minifyHtml())
-    .pipe(gulp.dest(Path.distRoot))
-    .pipe(size({showFiles: true}))
+    .pipe(gulp.dest(Config.productPath.root))
+    .pipe(size({showFiles: true}));
 });
 
 // ************************************ 复制router ************************************
 function compileRouter() {
-  console.log('>>>>>>>>>>>>>>> router开始复制。' + util.getNow());
-  return gulp.src(Path.src.router)
+  console.log('>>>>>>>>>>>>>>> router开始复制。' + NodeUtil.getNow());
+  return gulp.src(Config.sourcePath.router)
 }
 gulp.task('task_router_dev', () => {
   return compileRouter()
-    .pipe(gulp.dest(Path.devRoot))
+    .pipe(gulp.dest(Config.developPath.root))
     ;
 });
 gulp.task('task_router_dist', () => {
   return compileRouter()
-    .pipe(gulp.dest(Path.distRoot))
+    .pipe(gulp.dest(Config.productPath.root))
     ;
 });
 
 // ************************************ 程序入口(npm start),选择以何种服务启动NodeJs. ************************************
 let entry = {
   // 文件编译+监听
-  staticDev: function (callback) {
+  staticDev: function (callback, output) {
+    outputType = output || 'static';
     runSequence(
       ['task_clean_dev'],
       'task_sprite',
@@ -266,35 +276,36 @@ let entry = {
       'task_html_dev',
       'task_router_dev',
       function () {
-        console.log('>>>>>>>>>>>>>>> gulp dev全部任务执行完毕。' + util.getNow());
+        console.log('>>>>>>>>>>>>>>> gulp dev全部任务执行完毕。' + NodeUtil.getNow());
         // 监视html、模板变化
-        gulp.watch([`${Path.srcRoot}/**/*.{html,tpl}`], ['task_html_dev']);
+        gulp.watch([`${Config.sourcePath.root}/**/*.{html,tpl}`], ['task_html_dev']);
         // 监视router
-        gulp.watch([Path.src.router], ['task_router_dev']);
+        gulp.watch([Config.sourcePath.router], ['task_router_dev']);
         // 监视css变化
-        gulp.watch([`${Path.srcRoot}/**/*.scss`], ['task_css_dev']);
+        gulp.watch([`${Config.sourcePath.root}/**/*.scss`], ['task_css_dev']);
         // 监视雪碧图变化
-        gulp.watch([`${Path.srcRoot}/**/img/*/*.{png,jpg,gif}`], ['task_sprite']);
+        gulp.watch([`${Config.sourcePath.root}/**/img/*/*.{png,jpg,gif}`], ['task_sprite']);
         // 监视图片变化
-        gulp.watch([`${Path.srcRoot}/**/img/*.{png,jpg,gif}`], ['task_img_dev']);
+        gulp.watch([`${Config.sourcePath.root}/**/img/*.{png,jpg,gif}`], ['task_img_dev']);
         // 监视js、模板变化
-        gulp.watch([`${Path.srcRoot}/**/*.{js,jsx,tpl,vue}`], ['task_js_dev']);
+        gulp.watch([`${Config.sourcePath.root}/**/*.{js,jsx,tpl,vue}`], ['task_js_dev']);
         // 开启liveReload
         liveReload.listen();
         // 监听开发目录变化，触发liveReload刷新浏览器
-        gulp.watch([`${Path.devRoot}/**/*`], function (file) {
+        gulp.watch([`${Config.developPath.root}/**/*`], function (file) {
           //setTimeout(function(){
           // console.log('文件改变:        ' + path);
           liveReload.changed(file.path);
           //}, 1000);
         });
-        console.log('>>>>>>>>>>>>>>> gulp 已开启所有监听。' + util.getNow());
+        console.log('>>>>>>>>>>>>>>> gulp 已开启所有监听。' + NodeUtil.getNow());
         callback && callback();
       }
     );
   },
   // 文件编译+压缩
-  staticDist: function (callback) {
+  staticDist: function (callback, output) {
+    outputType = output || 'static';
     runSequence(
       ['task_clean_dist'],
       'task_sprite',
@@ -303,7 +314,7 @@ let entry = {
       'task_router_dist',
       'task_clean_temp',
       function () {
-        console.log('>>>>>>>>>>>>>>> gulp全部任务执行完毕。' + util.getNow());
+        console.log('>>>>>>>>>>>>>>> gulp全部任务执行完毕。' + NodeUtil.getNow());
         callback && callback();
       }
     );
@@ -313,37 +324,37 @@ let entry = {
     entry.staticDev(function () {
       // supervisor -w dev -e js server.js（-e .意为-extension *，-w dev监视dev目录）
       supervisor.run(('-w dev -e js,html ./config/express/server.dev.js').split(' '));
-    });
+    }, 'server');
   },
   // 文件编译+压缩+server启动
   serverDist: function () {
     entry.staticDist(function () {
       require('./express/server.dist.js');
-    });
+    }, 'server');
   }
 };
 gulp.task('default', function () {
-  // inquirer.prompt([
-  //   {
-  //     type: 'rawlist',
-  //     name: 'env',
-  //     message: 'please choose environment:',
-  //     choices: [
-  //       'staticDev',
-  //       'staticDist',
-  //       'serverDev',
-  //       'serverDist'
-  //     ]
-  //   }
-  // ]).then((answer) => {
-  //   entry[answer.env]();
-  // });
-  entry['staticDev']();
+  inquirer.prompt([
+    {
+      type: 'rawlist',
+      name: 'env',
+      message: 'please choose environment:',
+      choices: [
+        'staticDev',
+        'staticDist',
+        'serverDev',
+        'serverDist'
+      ]
+    }
+  ]).then((answer) => {
+    entry[answer.env]();
+  });
+  // entry['staticDev']();
 });
 
 // ************************************ 创建新模块(npm run create) ************************************
 gulp.task('create', () => {
-  console.log('>>>>>>>>>>>>>>> 开始创建新模块。' + util.getNow());
+  console.log('>>>>>>>>>>>>>>> 开始创建新模块。' + NodeUtil.getNow());
   inquirer.prompt([
     {
       type: 'rawlist',
@@ -375,8 +386,8 @@ gulp.task('create', () => {
   ]).then((answer) => {
     answer.desc = answer.desc || answer.title;
     console.log(JSON.stringify(answer, ' ', 2));
-    let sourcePath = answer.mode == 'pc' ? Path.src.generator.pc : Path.src.generator.m;
-    let destPath = `${Path.srcRoot}/page/${answer.name}`;
+    let sourcePath = answer.mode == 'pc' ? Config.generatorPath.pc : Config.generatorPath.m;
+    let destPath = `${Config.sourcePath.root}/page/${answer.name}`;
     gulp.src(sourcePath)
       .pipe(rename({
         basename: answer.name
@@ -393,6 +404,6 @@ gulp.task('create', () => {
         }, 1000);
       })
     ;
-    console.log('>>>>>>>>>>>>>>> ' + answer.page + '模块' + file + '文件创建完毕。' + util.getNow());
+    console.log('>>>>>>>>>>>>>>> ' + answer.page + '模块' + file + '文件创建完毕。' + NodeUtil.getNow());
   });
 });

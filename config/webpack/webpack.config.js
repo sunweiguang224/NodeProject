@@ -1,20 +1,20 @@
 /**
  * Created by weiguangsun on 2016/4/20.
  */
-import Path from '../path.js';
+import Config from '../Config.js';
 import fs from 'fs';
 import webpack from 'webpack';
 import glob from 'glob';
 import path from 'path';
 import autoprefixer from 'autoprefixer';
 
+// NodeJs直到6.4目前还不支持export default写法
 module.exports = {
-//export default {
   resolve: {
     // 为src/common/js/*/*.js文件提供别名
     alias: (function () {
       var alias = {};
-      var filePaths = glob.sync(__dirname + '/../../' + Path.srcRoot + '/common/js/*/*.js');
+      var filePaths = glob.sync(__dirname + '/../../' + Config.sourcePath.root + '/common/js/*/*.js');
       for (var i in filePaths) {
         var filePath = filePaths[i];
         alias[path.basename(filePath).replace('.js', '')] = filePath;
@@ -32,11 +32,11 @@ module.exports = {
     var filePaths = glob.sync(path);
     for (var i in filePaths) {
       var filePath = filePaths[i];		// 读取文件路径
-      var moduleName = filePath.replace(Path.srcRoot + '/', '').replace('.jsx', '').replace('.js', '');	// 文件编译后路径
+      var moduleName = filePath.replace(Config.sourcePath.root + '/', '').replace('.jsx', '').replace('.js', '');	// 文件编译后路径
       entry[moduleName] = './' + filePath;
     }
     return entry;
-  }(Path.src.js.page),
+  }(Config.sourcePath.js.page),
   // 插件
   plugins: [
     // 将公共代码抽离出来合并为一个文件
