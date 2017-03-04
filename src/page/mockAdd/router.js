@@ -8,16 +8,17 @@ var router = express.Router();
 
 // 新增+修改页面
 router.get('/mockAdd', function (req, res, next) {
+  // res.setHeader("cache-control", "max-age=60000");
   if (req.query.id) {
     db(function (connection) {
       connection.query('SELECT * from mock where id=' + req.query.id, function (err, rows, fields) {
         if (err) throw err;
         console.log(JSON.stringify(rows[0]));
-        res.render(__dirname + '/../../../dev/page/mockAdd/mockAdd.html', rows[0]);
+        res.render(`${__dirname}//mockAdd.html`, rows[0]);
       });
     });
   } else {
-    res.render(__dirname + '/../../../dev/page/mockAdd/mockAdd.html');
+    res.render(`${__dirname}/mockAdd.html`);
   }
 });
 

@@ -176,6 +176,7 @@ gulp.task('task_js_dist', () => {
       compress: true,  // 类型：Boolean 默认：true 是否完全压缩
       preserveComments: 'none'  // all保留所有注释
     }))
+      // .pipe(gzip({append: false}))
       .pipe(rename({suffix: '.min'}))
       .pipe(rev())
       .pipe(gulp.dest(Config.productPath.root))
@@ -334,6 +335,9 @@ let entry = {
   }
 };
 gulp.task('default', function () {
+  // entry['staticDev']();
+  // entry['serverDev']();
+  // return;
   inquirer.prompt([
     {
       type: 'rawlist',
@@ -349,7 +353,6 @@ gulp.task('default', function () {
   ]).then((answer) => {
     entry[answer.env]();
   });
-  // entry['staticDev']();
 });
 
 // ************************************ 创建新模块(npm run create) ************************************

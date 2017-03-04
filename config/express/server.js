@@ -14,11 +14,20 @@ module.exports = function (env, port) {
 
   /*总路由*/
   var server = express();
-for(var i=0;i<10;i++){
-  console.log(__dirname + '/' + relativePath + env)
-}
+
   /*静态文件*/
-  server.use('/', express.static(__dirname + '/' + relativePath + env));
+  server.use('/', express.static(__dirname + '/' + relativePath + env, {
+    // dotfiles: 'ignore',
+    // etag: false,
+    // extensions: ['htm', 'html', 'css', 'png', 'gif', 'jpg', 'js', 'tpl'],
+    // index: true,
+    // maxAge: '3600000',
+    // redirect: true,
+    setHeaders: function (res, path, stat) {
+      // res.set('Content-Encoding', 'gzip')
+    }
+  }));
+
 
   /*解析cookie到req.cookies*/
   server.use(cookieParser());
