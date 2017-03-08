@@ -8,7 +8,6 @@ var artTemplate = require('art-template');
 // import cookieParser from 'cookie-parser';
 // import artTemplate from 'art-template';
 
-
 module.exports = function (env, port) {
   var relativePath = '../../';
 
@@ -46,7 +45,8 @@ module.exports = function (env, port) {
 
   /*加载每个页面的路由*/
   console.log('已加载路由文件:');
-  var files = glob.sync(__dirname + '/' + relativePath + env + '/page/*/router.js');
+  // var files = glob.sync(__dirname + '/' + relativePath + env + '/page/*/router.js');
+  var files = glob.sync(__dirname + '/' + relativePath + env + '/router/*.js');
   for (var i = 0; i < files.length; i++) {
     server.use(require(files[i]));
     console.log(files[i]);

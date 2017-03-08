@@ -49,11 +49,15 @@ Config.generatorPath = {
 };
 // 开发环境编译路径
 Config.developPath = {
-  root: 'dev'
+  root: 'dev',
+  static: 'dev/static',
+  router: 'dev/router'
 };
 // 生产环境编译路径
 Config.productPath = {
   root: 'dist',
+  static: 'dist/static',
+  router: 'dev/router',
   temp: '.temp'
 };
 

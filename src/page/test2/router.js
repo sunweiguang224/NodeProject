@@ -1,5 +1,5 @@
 var express = require('express');
-var ajax = require('../../../config/express/ajax.js');
+var ajax = require('../../config/express/ajax.js');
 
 var router = express.Router();
 
@@ -13,7 +13,7 @@ router.get('/test2', function(req, res, next){
 		success: function(data){
 			console.log(data);
 			//res.render('dev/page/test2/test2.html', data);
-			res.render('page/test2/test2.html', data);
+			res.render(`${__dirname}/../test2.html`, data);
 		}
 	});
 });

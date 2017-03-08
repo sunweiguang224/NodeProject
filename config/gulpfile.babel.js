@@ -61,14 +61,12 @@ function compileCss() {
     .pipe(sourcemaps.write({includeContent: false}))  // 使用处理之前的源文件，当CSS被多个插件处理时，要加这句话，否则对应关系会错乱
     .pipe(autoprefixer({
       browsers: ['last 5 versions'], cascade: false
-    }))
-    ;
+    }));
 }
 gulp.task('task_css_dev', () => {
   return compileCss()
     .pipe(sourcemaps.write('./'))	// 写到目标css同级目录下
-    .pipe(gulp.dest(Config.developPath.root))
-    ;
+    .pipe(gulp.dest(Config.developPath.static));
 });
 gulp.task('task_css_dist', () => {
   return compileCss()
@@ -76,7 +74,7 @@ gulp.task('task_css_dist', () => {
     //.pipe(minifyCss())
     .pipe(rename({suffix: '.min'}))
     .pipe(rev())
-    .pipe(gulp.dest(Config.productPath.root))
+    .pipe(gulp.dest(Config.productPath.static))
     .pipe(size({showFiles: true}))
     .pipe(rev.manifest('rev-manifest/css.json'))
     .pipe(gulp.dest(Config.productPath.temp))
@@ -140,13 +138,13 @@ function compileImg() {
 }
 gulp.task('task_img_dev', () => {
   return compileImg()
-    .pipe(gulp.dest(Config.developPath.root))
+    .pipe(gulp.dest(Config.developPath.static))
     ;
 });
 gulp.task('task_img_dist', () => {
   return compileImg()
     .pipe(imagemin())
-    .pipe(gulp.dest(Config.productPath.root))
+    .pipe(gulp.dest(Config.productPath.static))
     .pipe(size({showFiles: true}));
 });
 
@@ -160,7 +158,7 @@ function webpackCompileJs() {
 }
 gulp.task('task_js_dev', () => {
   function deployDev(stream) {
-    return stream.pipe(gulp.dest(Config.developPath.root))
+    return stream.pipe(gulp.dest(Config.developPath.static))
       ;
   }
 
@@ -176,14 +174,15 @@ gulp.task('task_js_dist', () => {
       compress: true,  // 类型：Boolean 默认：true 是否完全压缩
       preserveComments: 'none'  // all保留所有注释
     }))
-      // .pipe(gzip({append: false}))
+    // .pipe(gzip({append: false}))
       .pipe(rename({suffix: '.min'}))
       .pipe(rev())
-      .pipe(gulp.dest(Config.productPath.root))
+      .pipe(gulp.dest(Config.productPath.static))
       .pipe(rev.manifest(options.manifestPath))
       .pipe(gulp.dest(Config.productPath.temp))
       ;
   }
+
   // common部分的js
   deployDist({
     stream: gulp.src(Config.sourcePath.js.common),
@@ -210,20 +209,20 @@ function compileHtml(isProduct) {
     })(),
     compress: isProduct ? '.min' : '',
     path: (function () {
-      for(var i=0;i<10;i++){
+      for (var i = 0; i < 10; i++) {
         console.log(outputType)
       }
       if (isProduct) {
         if (outputType == 'server') {
           return '';
         } else if (outputType == 'static') {
-          return '/' + NodeUtil.getProjectName() + '/' + Config.productPath.root;
+          return '/' + NodeUtil.getProjectName() + '/' + Config.productPath.static;
         }
       } else {
         if (outputType == 'server') {
           return '';
         } else if (outputType == 'static') {
-          return '/' + NodeUtil.getProjectName() + '/' + Config.developPath.root;
+          return '/' + NodeUtil.getProjectName() + '/' + Config.developPath.static;
         }
       }
     })()
@@ -234,7 +233,10 @@ function compileHtml(isProduct) {
       basepath: __dirname + '/../'
     }))
     .pipe(replace('{{path}}', options.path))
-    .pipe(replace('{{min}}', options.compress));
+    .pipe(replace('{{min}}', options.compress))
+    .pipe(rename({
+      dirname: ''
+    }));
 }
 
 gulp.task('task_html_dev', () => {
@@ -253,15 +255,19 @@ gulp.task('task_html_dist', () => {
 function compileRouter() {
   console.log('>>>>>>>>>>>>>>> router开始复制。' + NodeUtil.getNow());
   return gulp.src(Config.sourcePath.router)
+    .pipe(rename(function (path) {
+      path.basename = path.dirname.split('/').pop(); // 取最后一级文件夹名作文路由文件名
+      path.dirname = '';
+    }));
 }
 gulp.task('task_router_dev', () => {
   return compileRouter()
-    .pipe(gulp.dest(Config.developPath.root))
+    .pipe(gulp.dest(Config.developPath.router))
     ;
 });
 gulp.task('task_router_dist', () => {
   return compileRouter()
-    .pipe(gulp.dest(Config.productPath.root))
+    .pipe(gulp.dest(Config.productPath.router))
     ;
 });
 

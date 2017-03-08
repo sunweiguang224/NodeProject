@@ -1,6 +1,6 @@
 var express = require('express');
-var ajax = require('../../../config/express/ajax.js');
-var db = require('../../../config/express/db.js');
+var ajax = require('../../config/express/ajax.js');
+var db = require('../../config/express/db.js');
 var mockjs = require('mockjs');
 var artTemplate = require('art-template');
 

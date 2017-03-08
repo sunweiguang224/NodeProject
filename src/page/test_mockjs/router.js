@@ -1,5 +1,5 @@
 var express = require('express');
-var ajax = require('../../../config/express/ajax.js');
+var ajax = require('../../config/express/ajax.js');
 var mockjs = require('mockjs');
 
 

@@ -1,7 +1,7 @@
 var express = require('express');
-var ajax = require('../../../config/express/ajax.js');
+var ajax = require('../../config/express/ajax.js');
 var mysql = require('mysql');
-var db = require('../../../config/express/db.js');
+var db = require('../../config/express/db.js');
 var mockjs = require('mockjs');
 
 var router = express.Router();
@@ -14,11 +14,11 @@ router.get('/mockAdd', function (req, res, next) {
       connection.query('SELECT * from mock where id=' + req.query.id, function (err, rows, fields) {
         if (err) throw err;
         console.log(JSON.stringify(rows[0]));
-        res.render(`${__dirname}//mockAdd.html`, rows[0]);
+        res.render(`${__dirname}/../mockAdd.html`, rows[0]);
       });
     });
   } else {
-    res.render(`${__dirname}/mockAdd.html`);
+    res.render(`${__dirname}/../mockAdd.html`);
   }
 });
 
