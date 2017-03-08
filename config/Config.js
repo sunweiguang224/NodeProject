@@ -57,7 +57,7 @@ Config.developPath = {
 Config.productPath = {
   root: 'dist',
   static: 'dist/static',
-  router: 'dev/router',
+  router: 'dist/router',
   temp: '.temp'
 };
 

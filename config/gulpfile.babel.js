@@ -209,20 +209,18 @@ function compileHtml(isProduct) {
     })(),
     compress: isProduct ? '.min' : '',
     path: (function () {
-      for (var i = 0; i < 10; i++) {
-        console.log(outputType)
-      }
       if (isProduct) {
+        // CDN静态资源
         if (outputType == 'server') {
-          return '';
+          return './static';
         } else if (outputType == 'static') {
-          return '/' + NodeUtil.getProjectName() + '/' + Config.productPath.static;
+          return './static';
         }
       } else {
         if (outputType == 'server') {
-          return '';
+          return './static';
         } else if (outputType == 'static') {
-          return '/' + NodeUtil.getProjectName() + '/' + Config.developPath.static;
+          return './static';
         }
       }
     })()

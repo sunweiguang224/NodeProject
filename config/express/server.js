@@ -15,7 +15,7 @@ module.exports = function (env, port) {
   var server = express();
 
   /*静态文件*/
-  server.use('/', express.static(__dirname + '/' + relativePath + env, {
+  server.use('/', express.static(__dirname + '/' + relativePath + env /*+ '/static'*/, {
     // dotfiles: 'ignore',
     // etag: false,
     // extensions: ['htm', 'html', 'css', 'png', 'gif', 'jpg', 'js', 'tpl'],
