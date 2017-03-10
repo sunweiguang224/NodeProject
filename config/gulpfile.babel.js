@@ -29,7 +29,7 @@ import fs from 'fs';		// 文件操作模块
 import inquirer from 'inquirer';		// 控制台接收输入
 import babel from 'gulp-babel';		// es6编译
 import fileInclude from 'gulp-file-include';		// 为html引入tpl模板
-import spritesmith from 'gulp.spritesmith';		// 雪碧图
+import spritesmith from 'gulp.spritesmith';		// 精灵图
 import glob from 'glob';		// 路径匹配
 import mergeStream from 'merge-stream';		// 合并流然后返回给run-sequence保证任务顺序执行
 import path from 'path';		// 路径解析模块
@@ -81,54 +81,32 @@ gulp.task('task_css_dist', () => {
     ;
 });
 
-// ************************************ 合成雪碧图+生成scss ************************************
+// ************************************ 合成精灵图+生成scss ************************************
 gulp.task('task_sprite', () => {
-  console.log('>>>>>>>>>>>>>>> 开始合成雪碧图。' + NodeUtil.getNow());
-  //let dirs = fs.readdirSync(Config.sourcePath.sprite);
+  console.log('>>>>>>>>>>>>>>> 开始合成精灵图。' + NodeUtil.getNow());
   let merged = mergeStream();
-
-  function create(param) {
-    param.iconDirs.forEach(function (iconDir) {
-      console.log(iconDir)
-      if (fs.statSync(iconDir).isDirectory()) {
-        let baseName = iconDir.substring(iconDir.lastIndexOf('/') + 1);
-        let stream = gulp.src(iconDir + '/*')
-          .pipe(spritesmith({
-            cssTemplate: `./config/spritesmith/spritesmith.css.${Config.runtime}.hbs`,
-            padding: 10,
-            layout: 'top-down',
-            imgName: '_' + baseName + '.png',
-            cssName: '_' + baseName + '.scss',
-          }));
-        merged.add(stream.img.pipe(gulp.dest(iconDir + param.img)));
-        merged.add(stream.css.pipe(gulp.dest(iconDir + param.css)));
-      }
-    });
-  }
-
-  // page雪碧图
-  let iconDirs = [];
-  iconDirs = iconDirs.concat(glob.sync(path.normalize(Config.sourcePath.icon.page + '/..')));
-  create({
-    iconDirs: iconDirs,
-    img: '/..',
-    css: '/../../css/',
-  });
-  // common雪碧图
-  iconDirs = glob.sync(path.normalize(Config.sourcePath.icon.common + '/..'));
-  create({
-    iconDirs: iconDirs,
-    img: '/..',
-    css: '/../../css/icon/',
-  });
-  // widget雪碧图
-  iconDirs = glob.sync(path.normalize(Config.sourcePath.icon.widget + '/..'));
-  create({
-    iconDirs: iconDirs,
-    img: '/..',
-    css: '/../../',
+  let iconDirs = glob.sync(path.normalize(Config.sourcePath.icon + '/..'));
+  iconDirs.forEach(function (iconDir) {
+    if (fs.statSync(iconDir).isDirectory()) {
+      console.log(iconDir);
+      let dirArr = iconDir.split('/');
+      let baseName = dirArr.pop();
+      dirArr.shift();
+      let stream = gulp.src(iconDir + '/*')
+        .pipe(spritesmith({
+          cssTemplate: `./config/spritesmith/spritesmith.${Config.runtime}.hbs`,
+          padding: 10,
+          layout: 'top-down',
+          imgName: `${baseName}.png`,
+          cssName: `_${baseName}.scss`,
+          imgPath: `../../../${dirArr.join('/')}/${baseName}.png`
+        }));
+      merged.add(stream.img.pipe(gulp.dest(iconDir + '/..')));
+      merged.add(stream.css.pipe(gulp.dest(iconDir + '/..')));
+    }
   });
   return merged.isEmpty() ? null : merged;  // 保证顺序执行
+
 });
 
 // ************************************ 编译图片 ************************************
@@ -288,7 +266,7 @@ let entry = {
         gulp.watch([Config.sourcePath.router], ['task_router_dev']);
         // 监视css变化
         gulp.watch([`${Config.sourcePath.root}/**/*.scss`], ['task_css_dev']);
-        // 监视雪碧图变化
+        // 监视精灵图变化
         gulp.watch([`${Config.sourcePath.root}/**/img/*/*.{png,jpg,gif}`], ['task_sprite']);
         // 监视图片变化
         gulp.watch([`${Config.sourcePath.root}/**/img/*.{png,jpg,gif}`], ['task_img_dev']);
@@ -357,6 +335,12 @@ gulp.task('default', function () {
   ]).then((answer) => {
     entry[answer.env]();
   });
+});
+gulp.task('dev', function () {
+  entry.staticDev();
+});
+gulp.task('dist', function () {
+  entry.staticDist();
 });
 
 // ************************************ 创建新模块(npm run create) ************************************

@@ -1,0 +1,20 @@
+// a1 图片:
+@mixin i-a1 {
+  content: '';
+  display: inline-block;
+  width: (16px);
+  height: (16px);
+  background: url(../../../common/img/icon.png) 0px 0px no-repeat;
+  background-size: 42px 16px;
+}
+
+// a2 图片:
+@mixin i-a2 {
+  content: '';
+  display: inline-block;
+  width: (16px);
+  height: (16px);
+  background: url(../../../common/img/icon.png) -26px 0px no-repeat;
+  background-size: 42px 16px;
+}
+

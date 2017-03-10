@@ -3,6 +3,6 @@
 @import '../../../common/css/util/_mixin';
 @import '../../../common/css/util/_mixin';
 @import '../../../widget/m-multiLine/m-multiLine';
-//@import '_icon';
+@import '../img/icon';
 
 @include m-multiLine(5);

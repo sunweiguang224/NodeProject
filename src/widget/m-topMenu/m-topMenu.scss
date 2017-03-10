@@ -1,5 +1,5 @@
 @import '../../common/css/common.pc.scss';
-@import '_icon';
+@import 'img/icon';
 
 /*顶部菜单*/
 $topMenuHeight: 100px;
@@ -21,7 +21,7 @@ $topMenuHeight: 100px;
     font-size: 30px;
   }
   &:before{
-    @include i-logo('../../../widget/m-topMenu/img/');
+    @include i-logo;
   }
 }
 
@@ -75,7 +75,7 @@ $topMenuHeight: 100px;
     margin-bottom: 7px;
     line-height: 14px;
     &:before{
-      @include i-login('../../../widget/m-topMenu/img/');
+      @include i-login;
     }
     .num {
       position: absolute;

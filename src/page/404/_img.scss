@@ -1,0 +1,10 @@
+// 404 图片:
+@mixin i-404($path: '../img/'){
+  content: '';
+  display: inline-block;
+  width: (488px);
+  height: (298px);
+  background: url($path + 'img.png') 0px 0px no-repeat;
+  background-size: 488px 298px;
+}
+

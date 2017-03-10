@@ -1,5 +1,5 @@
 @import '../../common/css/common.pc.scss';
-@import '_icon';
+@import 'img/icon';
 
 /*文章*/
 .m-article{
@@ -24,7 +24,7 @@
       margin-top: -2px;
     }
     &:after{
-      @include i-redStar('../../../widget/m-article/img/');
+      @include i-redStar;
       margin-top: -4px;
       margin-left: 12px;
     }
@@ -66,7 +66,7 @@
     @include click-animation;
     @include level-children;
     &:before{
-      @include i-comment('../../../widget/m-article/img/');
+      @include i-comment;
       margin-top: -3px;
       margin-right: 10px;
     }

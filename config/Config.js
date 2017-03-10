@@ -21,11 +21,7 @@ Config.sourcePath = {
     'src/*common/css/**/*.*',     // 原先写法 css: 'src/*(page|common)/**/css/*.scss',
     'src/*page/' + pageName + '/css/*.scss'
   ],
-  icon: {
-    page: 'src/*page/*/img/*/*',
-    widget: 'src/*widget/*/img/*/*',
-    common: 'src/*common/img/*/*', // common模块下图片是公用的，页面之间可以利用缓存，故不作处理
-  },
+  icon: 'src/**/img/icon*/*',
   img: [
     'src/*common/img/*.*',
     'src/*page/' + pageName + '/img/*.*',

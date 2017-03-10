@@ -1,0 +1,10 @@
+// icon8 图片:
+@mixin i-icon8{
+  content: '';
+  display: inline-block;
+  width: (121px);
+  height: (117px);
+  background: url(../../../page/test/img/icon.png) 0px 0px no-repeat;
+  background-size: 121px 117px;
+}
+

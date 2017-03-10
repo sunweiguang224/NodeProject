@@ -1,0 +1,20 @@
+// comment 图片:
+@mixin i-comment{
+  content: '';
+  display: inline-block;
+  width: (16px);
+  height: (16px);
+  background: url(../../../widget/m-article/img/icon.png) 0px 0px no-repeat;
+  background-size: 42px 16px;
+}
+
+// redStar 图片:
+@mixin i-redStar{
+  content: '';
+  display: inline-block;
+  width: (16px);
+  height: (16px);
+  background: url(../../../widget/m-article/img/icon.png) -26px 0px no-repeat;
+  background-size: 42px 16px;
+}
+
