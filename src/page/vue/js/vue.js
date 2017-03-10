@@ -13,6 +13,8 @@ import helper from 'helper';
 import lazyload from 'lazyload';
 import param from 'param';
 import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex)
 import List from '../vue/List.vue';
 import recursion from '../vue/recursion.vue';
 
@@ -20,71 +22,84 @@ class Biz {
   /* 构造方法 */
   constructor() {
 
-    window.vm = new Vue({
+    var store1 = new Vuex.Store({
+      state: {
+        count: 333
+      },
+      mutations: {
+        increment: state => state.count++,
+        decrement: state => state.count--
+      }
+    });
+    
+    // var store = {
+    //   state: {
+    //     count: 333
+    //   },
+    //   mutations: {
+    //     increment: state => state.count++,
+    //     decrement: state => state.count--
+    //   }
+    // };
+
+    let list1 = new Vue({
       el: '#list111',
-      template: '<list v-bind:lis="lis" :bool="true" :html="html" :num="num" :type="type"/>',
+      store: store1,
+      template: `
+        <list v-bind:lis="lis" :bool="true" :html="html" :type="type" :num="num" v-on:bbb="bbb"
+         />
+        `,
       components: {
         list: List,
       },
       data: {
         lis: ['1114eeeeeeeeeeeedddddddd', 333, 6566, 123],
-        html: '<b style="color: red;">哈哈</b><script >console.log(111)</script>',
+        html: '<b style="color: red;">哈哈ddddd</b><script >console.log(111)</script>',
         num: 1,
         type: 1,
       },
-      created: function () {
-        console.log('created');
+      propsData: {
+        num: 1
       },
-      beforeCreate: function () {
-        console.log('beforeCreate');
+      methods: {
+        click11: function () {
+          alert(6)
+        },
+        bbb(event){
+          debugger
+          recursion1.$data.isShow = false;
+        }
       },
-      beforeMount: function () {
-        console.log('beforeMount');
-      },
-      mounted: function () {
-        console.log('mounted');
-      },
-      beforeDestroy: function () {
-        console.log('beforeDestroy');
-      },
-      destroyed: function () {
-        console.log('destroyed');
-      },
-      beforeUpdate: function () {
-        console.log('beforeUpdate');
-      },
-      updated: function () {
-        console.log('updated');
-      }
     });
+debugger
 
-
-    new Vue({
+    var isShow = true;
+    let recursion1 = new Vue({
       el: '#recursion',
-      template: '<recursion :list="list"/>',
+      template: '<recursion :list="list" :isShow="isShow"/>',
       components: {
         recursion: recursion,
       },
       data: {
         list: [1, 2, 3, 4, 5],
+        isShow: isShow,
       },
-    })
-
-    setTimeout(function () {
-      var app4 = new Vue({
-        el: '#app-4',
-        data: {
-          todos: [
-            {text: 'Learn JavaScript'},
-            {text: 'Learn Vue'},
-            {text: 'Build something awesome'}
-          ]
-        },
-        mounted: function (event) {
-          this.$el.style.visibility = 'visible';
-        }
-      })
-    }, 2000);
+    });
+    // setTimeout(function () {
+    //   var app4 = new Vue({
+    //     el: '#app-4',
+    //     data: {
+    //       todos: [
+    //         {text: 'Learn JavaScript'},
+    //         {text: 'Learn Vue'},
+    //         {text: 'Build something awesome'}
+    //       ]
+    //     },
+    //     mounted: function (event) {
+    //       this.$el.style.visibility = 'visible';
+    //     }
+    //   })
+    // }, 2000);
   }
 }
 

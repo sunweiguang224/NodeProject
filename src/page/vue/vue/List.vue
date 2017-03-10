@@ -3,7 +3,7 @@
   <div class="list" v-if="bool" :eee="'122'+3">
     {{num | addOne | addOne('1')}}
     <li v-for="(item, i) of lis1" @click="showInfo">{{item}} {{i}}</li>
-    <input type="text" v-model="t1">
+    <input type="text" v-model="t1" @click="click11">
     <div v-html="html"></div>
     {{numComputed}}
     {{add}}
@@ -16,8 +16,8 @@
       <input type="text" title="fffgg" class="ddd">
       <p>22</p>
     </div>
-    <div style="margin-top: 30px;">
-      wefweffffffffffff
+    <div style="margin-top: 30px;" @click="cc">
+      {{ count }}
     </div>
   </div>
 </template>
@@ -29,9 +29,10 @@
       return {
         t1: 'wefewf',
         tt: '嘎嘎',
-        num: 0,
+//        num: 0,
         add: 0,
-        lis1: this.lis
+        lis1: this.lis,
+        count: this.$store.state.count
       }
     },
     props: {
@@ -40,6 +41,8 @@
       html: null,
       num: null,
       type: null,
+//      count: null,
+//      store: null,
       wefefw: {
 //        required: true,
       }
@@ -51,6 +54,13 @@
       alert: function (event) {
 //        this.lis1.push(3333);
         this.lis1 = [5];
+      },
+      click11(){
+        this.$emit('bbb');
+      },
+      cc(){
+//        this.$props.store.commit('increment');
+        this.$store.state.count ++ ;
       }
     },
     filters: {
@@ -61,7 +71,10 @@
     computed: {
       numComputed: function () {
         return this.num + 1;
-      }
+      },
+//      count(){
+//        return this.$store.state.count;
+//      }
     },
     watch: {
       html: function () {

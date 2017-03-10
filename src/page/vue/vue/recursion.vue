@@ -1,8 +1,10 @@
 <!--模板-->
 <template>
-  <div class="recursion" v-if="index <= list.length - 1">
-    <recursion :list="list" :index="index + 1"/>
-    {{list[index]}}
+  <div v-if="isShow === true">
+    <div class="recursion" v-if="index <= list.length - 1">
+      <recursion :list="list" :index="index + 1"/>
+      {{list[index]}}
+    </div>
   </div>
 </template>
 
@@ -12,7 +14,7 @@
     name: 'recursion',
     data: function () {
       return {
-
+//        isShow: true
       }
     },
     props: {
@@ -21,19 +23,15 @@
         type: Number,
         default: 0,
       },
+      isShow: {
+        type: Boolean,
+        default: true,
+      },
     },
-    methods: {
-
-    },
-    filters: {
-
-    },
-    computed: {
-
-    },
-    watch: {
-
-    }
+    methods: {},
+    filters: {},
+    computed: {},
+    watch: {}
   }
 </script>
 
@@ -43,6 +41,7 @@
   @import '../../../common/css/util/_mixin';
 
   .recursion {
-    border: 1px solid #ddd;padding: 5px;
+    border: 1px solid #ddd;
+    padding: 5px;
   }
 </style>
