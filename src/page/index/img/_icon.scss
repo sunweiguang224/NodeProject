@@ -1,5 +1,5 @@
 // book 图片:
-@mixin i-book{
+@mixin i-book {
   content: '';
   display: inline-block;
   width: (17px);
@@ -9,7 +9,7 @@
 }
 
 // horn 图片:
-@mixin i-horn{
+@mixin i-horn {
   content: '';
   display: inline-block;
   width: (20px);
@@ -19,7 +19,7 @@
 }
 
 // inputPass 图片:
-@mixin i-inputPass{
+@mixin i-inputPass {
   content: '';
   display: inline-block;
   width: (13px);
@@ -29,7 +29,7 @@
 }
 
 // inputUser 图片:
-@mixin i-inputUser{
+@mixin i-inputUser {
   content: '';
   display: inline-block;
   width: (14px);
@@ -39,7 +39,7 @@
 }
 
 // notebook 图片:
-@mixin i-notebook{
+@mixin i-notebook {
   content: '';
   display: inline-block;
   width: (18px);

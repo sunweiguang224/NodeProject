@@ -11,63 +11,80 @@ import $ from 'jquery';
 import PATH from 'path';
 import helper from 'helper';
 import lazyload from 'lazyload';
-import SwgFullPage from 'SwgFullPage';
+import tj from 'tj';
+// import SwgFullPage from 'SwgFullPage';
 
 class Biz {
-	/* 构造方法 */
-	constructor() {
-		this.init();
-	}
+  /* 构造方法 */
+  constructor() {
+    this.init();
 
-	/* 初始化页面 */
-	init() {
-    new SwgFullPage().init();
+    
+
+    var url = 'http://tj.davdian.com/tj.gif?t=1&a=channel&b=jquery_tj@channel&c=jquery_ok@channel&tt=1489216858323.8892&&_=1489217346104';
+    tj.report({
+      url:'//tj.davdian.com/tj.gif',
+      b: 11111,
+      g: 3, 
+    });
+
+
+    try {
+
+    } catch (e) {
+
+    }
+  }
+
+  /* 初始化页面 */
+  init() {
+    // new SwgFullPage().init();
     return;
-		var ts = this;
-		// 先渲染页面，再绑定事件
-		$.when(
-			this.getData(),
-			this.getData()
-		).then(function () {
-			ts.bindEvent();
-		})
-	}
+    var ts = this;
+    // 先渲染页面，再绑定事件
+    $.when(
+      this.getData(),
+      this.getData()
+    ).then(function () {
+      ts.bindEvent();
+    })
+  }
 
-	/* 获取数据- */
-	getData() {
-		let ts = this,
-			defer = $.Deferred();
-		$.ajax({
-			cache: false,
-			async: true,
-			url: 'xxx',
-			type: 'get',
-			data: {}
-		}).then(function (data) {
-			ts.renderPage(data);
-			defer.resolve();
-		});
-		return defer;
-	}
+  /* 获取数据- */
+  getData() {
+    let ts = this,
+      defer = $.Deferred();
+    $.ajax({
+      cache: false,
+      async: true,
+      url: 'xxx',
+      type: 'get',
+      data: {}
+    }).then(function (data) {
+      ts.renderPage(data);
+      defer.resolve();
+    });
+    return defer;
+  }
 
-	/* 渲染页面- */
-	renderPage(data) {
-		//var html = require('../tpl/xxx.tpl')(data);
-		//$('xxx').html(html);
-	}
+  /* 渲染页面- */
+  renderPage(data) {
+    //var html = require('../tpl/xxx.tpl')(data);
+    //$('xxx').html(html);
+  }
 
-	/* 绑定事件 */
-	bindEvent() {
+  /* 绑定事件 */
+  bindEvent() {
 
-	}
+  }
 
-	/* 工具方法 */
-	util() {
+  /* 工具方法 */
+  util() {
 
-	}
+  }
 }
 
 // 开始执行
 $(document).on('DOMContentLoaded', function () {
-	new Biz();
+  new Biz();
 });
