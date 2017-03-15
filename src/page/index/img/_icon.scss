@@ -1,5 +1,5 @@
-// book 图片:
-@mixin i-book {
+// i-page-book 图片:
+@mixin i-page-book {
   content: '';
   display: inline-block;
   width: (17px);
@@ -8,8 +8,8 @@
   background-size: 94px 49px;
 }
 
-// horn 图片:
-@mixin i-horn {
+// i-page-horn 图片:
+@mixin i-page-horn {
   content: '';
   display: inline-block;
   width: (20px);
@@ -18,8 +18,8 @@
   background-size: 94px 49px;
 }
 
-// inputPass 图片:
-@mixin i-inputPass {
+// i-page-inputPass 图片:
+@mixin i-page-inputPass {
   content: '';
   display: inline-block;
   width: (13px);
@@ -28,8 +28,8 @@
   background-size: 94px 49px;
 }
 
-// inputUser 图片:
-@mixin i-inputUser {
+// i-page-inputUser 图片:
+@mixin i-page-inputUser {
   content: '';
   display: inline-block;
   width: (14px);
@@ -38,8 +38,8 @@
   background-size: 94px 49px;
 }
 
-// notebook 图片:
-@mixin i-notebook {
+// i-page-notebook 图片:
+@mixin i-page-notebook {
   content: '';
   display: inline-block;
   width: (18px);

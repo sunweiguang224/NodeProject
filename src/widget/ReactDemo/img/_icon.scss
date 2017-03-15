@@ -1,5 +1,5 @@
-// comment 图片:
-@mixin i-comment {
+// i-widget-comment 图片:
+@mixin i-widget-comment {
   content: '';
   display: inline-block;
   width: (16px);
@@ -8,8 +8,8 @@
   background-size: 42px 16px;
 }
 
-// redStar 图片:
-@mixin i-redStar {
+// i-widget-redStar 图片:
+@mixin i-widget-redStar {
   content: '';
   display: inline-block;
   width: (16px);

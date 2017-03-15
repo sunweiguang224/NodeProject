@@ -1,11 +1,11 @@
 {{#sprites}}
-// {{name}} 图片:
-@mixin i-{{name}} {
+// {{mixinName}} 图片:
+@mixin {{mixinName}} {
   content: '';
   display: inline-block;
   width: ({{width}}px);
   height: ({{height}}px);
-  background: url({{escaped_image}}) {{offset_x}}px {{offset_y}}px no-repeat;
+  background: url({{image}}) {{offset_x}}px {{offset_y}}px no-repeat;
   background-size: {{total_width}}px {{total_height}}px;
 }
 

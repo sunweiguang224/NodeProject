@@ -21,7 +21,7 @@ $topMenuHeight: 100px;
     font-size: 30px;
   }
   &:before{
-    @include i-logo;
+    @include i-widget-logo;
   }
 }
 
@@ -75,7 +75,7 @@ $topMenuHeight: 100px;
     margin-bottom: 7px;
     line-height: 14px;
     &:before{
-      @include i-login;
+      @include i-widget-login;
     }
     .num {
       position: absolute;

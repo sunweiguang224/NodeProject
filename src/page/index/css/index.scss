@@ -47,7 +47,7 @@
     vertical-align: bottom;
     &:before{
       content: '';
-      @include i-book;
+      @include i-page-book;
       vertical-align: middle;
       margin-top: -6px;
       margin-right: 10px;
@@ -94,7 +94,7 @@
   }
   p.username{
     &:before{
-      @include i-inputUser;
+      @include i-page-inputUser;
       position: absolute;
       top: 8px;
       left: 14px;
@@ -109,7 +109,7 @@
       z-index: 1;
     }
     &:before{
-      @include i-inputPass;
+      @include i-page-inputPass;
       position: absolute;
       top: 8px;
       left: 14px;
@@ -232,7 +232,7 @@
   @include level-children;
   padding: 0 8px;
   &:before{
-    @include i-horn;
+    @include i-page-horn;
   }
   .words{
     margin-left: 8px;
@@ -269,7 +269,7 @@
   margin-bottom: 24px;
   background-color: $pannelColor;
   .m-tab .sheet:before{
-    @include i-notebook
+    @include i-page-notebook
   }
 }
 .g-pic-list{

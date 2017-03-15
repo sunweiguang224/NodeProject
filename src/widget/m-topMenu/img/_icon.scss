@@ -1,5 +1,5 @@
-// login 图片:
-@mixin i-login {
+// i-widget-login 图片:
+@mixin i-widget-login {
   content: '';
   display: inline-block;
   width: (26px);
@@ -8,8 +8,8 @@
   background-size: 132px 97px;
 }
 
-// logo 图片:
-@mixin i-logo {
+// i-widget-logo 图片:
+@mixin i-widget-logo {
   content: '';
   display: inline-block;
   width: (96px);

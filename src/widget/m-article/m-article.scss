@@ -24,7 +24,7 @@
       margin-top: -2px;
     }
     &:after{
-      @include i-redStar;
+      @include i-widget-redStar;
       margin-top: -4px;
       margin-left: 12px;
     }
@@ -66,7 +66,7 @@
     @include click-animation;
     @include level-children;
     &:before{
-      @include i-comment;
+      @include i-widget-comment;
       margin-top: -3px;
       margin-right: 10px;
     }

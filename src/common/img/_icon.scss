@@ -1,5 +1,5 @@
-// a1 图片:
-@mixin i-a1 {
+// i-common-a1 图片:
+@mixin i-common-a1 {
   content: '';
   display: inline-block;
   width: (16px);
@@ -8,8 +8,8 @@
   background-size: 42px 16px;
 }
 
-// a2 图片:
-@mixin i-a2 {
+// i-common-a2 图片:
+@mixin i-common-a2 {
   content: '';
   display: inline-block;
   width: (16px);

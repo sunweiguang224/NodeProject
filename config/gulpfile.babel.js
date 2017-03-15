@@ -90,16 +90,22 @@ gulp.task('task_sprite', () => {
     if (fs.statSync(iconDir).isDirectory()) {
       console.log(iconDir);
       let dirArr = iconDir.split('/');
-      let baseName = dirArr.pop();
-      dirArr.shift();
+      // 临时dir数组
+      let newDirArray = [].concat(dirArr);
+      newDirArray.shift();
+      let dirName = newDirArray.pop();
       let stream = gulp.src(iconDir + '/*')
         .pipe(spritesmith({
           cssTemplate: `./config/spritesmith/spritesmith.${Config.runtime}.hbs`,
           padding: 10,
           layout: 'top-down',
-          imgName: `${baseName}.png`,
-          cssName: `_${baseName}.scss`,
-          imgPath: `../../../${dirArr.join('/')}/${baseName}.png`
+          imgName: `${dirName}.png`,
+          cssName: `_${dirName}.scss`,
+          // 取相对路径即可,因为css和img是部署在一起的
+          imgPath: `../../../${newDirArray.join('/')}/${dirName}.png`,
+          cssVarMap: function(sprite){
+            sprite.mixinName = `i-${dirArr[1]}-${sprite.name}`;
+          }
         }));
       merged.add(stream.img.pipe(gulp.dest(iconDir + '/..')));
       merged.add(stream.css.pipe(gulp.dest(iconDir + '/..')));
