@@ -25,7 +25,7 @@ Config.sourcePath = {
   img: [
     'src/*common/img/*.*',
     'src/*page/' + pageName + '/img/*.*',
-    'src/*widget/*/img/*.*',
+    'src/*widget/*/img/*.?(png|jpg|gif)',
   ],
   html: 'src/*page/' + pageName + '/*.html',
   router: 'src/*page/' + pageName + '/*.js',

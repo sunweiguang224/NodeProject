@@ -12,14 +12,13 @@ import PATH from 'path';
 import helper from 'helper';
 import lazyload from 'lazyload';
 import mockjs from 'mockjs';
+import tj from 'tj';
 
 class Biz {
   /* 构造方法 */
   constructor() {
     $(document).ajaxStart(function(data){
-      debugger
     }).ajaxStop(function(data){
-      debugger
     });
     mockjs.mock('/123', {
       // 属性 list 的值是一个数组，其中含有 1 到 10 个元素

@@ -19,6 +19,7 @@
     <div style="margin-top: 30px;" @click="cc">
       {{ count }}
     </div>
+    <img src="../img/logo.png" alt="">
   </div>
 </template>
 

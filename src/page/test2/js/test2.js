@@ -44,5 +44,3 @@ class Small extends Big {
 		console.log('method s');
 	}
 }
-
-debugger

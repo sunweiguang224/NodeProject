@@ -59,9 +59,10 @@ function compileCss() {
     .pipe(sourcemaps.init())	// 放到最开始才能对应原始的scss文件
     .pipe(sass({outputStyle: 'uncompressed'}))
     .pipe(sourcemaps.write({includeContent: false}))  // 使用处理之前的源文件，当CSS被多个插件处理时，要加这句话，否则对应关系会错乱
-    .pipe(autoprefixer({
-      browsers: ['last 5 versions'], cascade: false
-    }));
+    // .pipe(autoprefixer({
+    //   browsers: ['last 100 versions', '> 1%'], cascade: false
+    // }));
+    .pipe(autoprefixer());
 }
 gulp.task('task_css_dev', () => {
   return compileCss()
@@ -74,7 +75,6 @@ gulp.task('task_css_dist', () => {
     //.pipe(minifyCss())
     .pipe(rename({suffix: '.min'}))
     .pipe(rev())
-    .pipe(gulp.dest(Config.productPath.static))
     .pipe(size({showFiles: true}))
     .pipe(rev.manifest('rev-manifest/css.json'))
     .pipe(gulp.dest(Config.productPath.temp))
@@ -158,7 +158,7 @@ gulp.task('task_js_dist', () => {
       compress: true,  // 类型：Boolean 默认：true 是否完全压缩
       preserveComments: 'none'  // all保留所有注释
     }))
-    // .pipe(gzip({append: false}))
+    .pipe(gzip({append: false}))
       .pipe(rename({suffix: '.min'}))
       .pipe(rev())
       .pipe(gulp.dest(Config.productPath.static))
